@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="button_start">Старт</string>
+    <string name="button_continue">Продолжить</string>
+    <string name="button_levels">Уровни</string>
+    <string name="button_exit">Выход</string>
+    
+</resources>

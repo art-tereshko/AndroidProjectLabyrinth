@@ -1,0 +1,34 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".menuActivity"
+    android:background="@drawable/menu_background"
+    >
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="@string/button_start"
+            android:id="@+id/button_start"
+            style="@style/menu_button"
+            android:onClick="start_button_clicked"/>
+
+        <Button
+            android:text="@string/button_levels"
+            android:id="@+id/button_levels"
+            style="@style/menu_button"/>
+
+        <Button
+            android:text="@string/button_exit"
+            android:id="@+id/button_exit"
+            style="@style/menu_button"
+            android:onClick="exit_button_clicked"/>
+
+    </LinearLayout>
+
+</FrameLayout>

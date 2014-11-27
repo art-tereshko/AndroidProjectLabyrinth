@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="button_start">Jouer</string>
+    <string name="button_continue">Continuer</string>
+    <string name="button_levels">Niveaux</string>
+    <string name="button_exit">Sortie</string>
+
+</resources>
