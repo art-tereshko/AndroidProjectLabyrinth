@@ -18,7 +18,7 @@ public class Wall extends GameObject implements  Collisionable{
     private int right;
     private int bottom;
 
-    Paint p;
+    Paint p= new Paint();
 
     public Wall(int x, int y, int width, int height) {
         super(x,y);
@@ -33,7 +33,6 @@ public class Wall extends GameObject implements  Collisionable{
 
         this.DrawRectangle = new Rect(x,y, x+width, y+height);
 
-        p = new Paint();
         p.setColor(Color.GREEN);
     }
 
