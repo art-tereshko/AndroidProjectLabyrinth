@@ -45,7 +45,7 @@ public class Wall extends GameObject implements  Collisionable{
 
     @Override
     public void setTexture(Bitmap b) {
-
+        b = null;
     }
 
     @Override
