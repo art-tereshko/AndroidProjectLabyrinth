@@ -10,6 +10,5 @@ public interface Movable {
     float getSpeedY();
     void setAcceleration(float x , float y);
     void Move();
-    void SetMovementBounds(int x, int y, int height, int width);
 
 }

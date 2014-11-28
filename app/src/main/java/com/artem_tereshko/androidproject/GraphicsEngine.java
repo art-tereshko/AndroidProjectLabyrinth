@@ -15,6 +15,7 @@ import android.view.SurfaceView;
 
 import game.Ball;
 import game.CircularWall;
+import game.Hole;
 import game.Level;
 import game.PhysicsEngine;
 import game.Wall;
@@ -63,9 +64,10 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         balltexture = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         Ball b = new Ball( balltexture.getHeight(),balltexture.getWidth() );
         b.setTexture(balltexture);
-        b.SetMovementBounds(0,0,getHeight(), getWidth());
         engine.setBall(b);
         engine.setLevel(Level.Level1(getHeight(), getWidth()));
+        Bitmap holetexture = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
+        engine.getLevel().getHoles().get(0).setTexture(holetexture);
         engine.Start();
 
         Canvas canvas = null;
@@ -117,6 +119,12 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         for (CircularWall circularWall : engine.getLevel().getCircularWalls()) {
             circularWall.Draw(canvas);
         }
+
+        for (Hole h:  engine.getLevel().getHoles())
+        {
+            h.Draw(canvas);
+        }
+
 
         engine.getBall().Draw(canvas);
 

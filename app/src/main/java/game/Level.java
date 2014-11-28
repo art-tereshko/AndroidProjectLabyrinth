@@ -1,5 +1,7 @@
 package game;
 
+import android.graphics.Rect;
+
 import java.util.ArrayList;
 
 /**
@@ -28,6 +30,8 @@ public class Level {
     private ArrayList<Cannon> cannons;
     private ArrayList<Hole> holes;
 
+    private Rect movementBounds;
+
     private int worldHeight;
     private int worldWidth;
 
@@ -44,6 +48,7 @@ public class Level {
         cannons = new ArrayList<Cannon>();
         walls = new ArrayList<Wall>();
         holes = new ArrayList<Hole>();
+        movementBounds = new Rect(0,0, width, height);
 
     }
     /**
@@ -54,12 +59,16 @@ public class Level {
     public static Level Level1(int height, int width){
 
         Level lvl = new Level(height, width);
-        lvl.addWall(new Wall(0,0, width, 10));
-        lvl.addWall(new Wall(0,0, 10, height));
-        lvl.addWall(new Wall(width-10,0, 10, height));
-        lvl.addWall(new Wall(100,100,200,50));
+        //lvl.addWall(new Wall(0,0, width, 10));
+        //lvl.addWall(new Wall(0,0, 10, height));
+       // lvl.addWall(new Wall(width-10,0, 10, height));
+        lvl.addWall(new Wall(400,70,50,500));
 
-        lvl.addCircularWall(new CircularWall(50, 300,150));
+        lvl.addWall(new Wall(700,400,50,500));
+
+      //  lvl.addCircularWall(new CircularWall(50, 300,150));
+
+        lvl.addHole(new Hole(1000,300,50,50));
 
         return lvl;
     }
@@ -88,12 +97,16 @@ public class Level {
         circularWalls.add(cw);
     }
 
-    public void addCannon(Cannon c){
+    public void addCannon(Cannon c) {
         cannons.add(c);
     }
-    public void addHole(Hole h){
+
+    public void addHole(Hole h) {
         holes.add(h);
     }
 
+    public Rect getMovementBounds() {
+        return this.movementBounds;
+    }
 
 }

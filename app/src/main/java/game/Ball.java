@@ -40,6 +40,22 @@ public class Ball extends InteractiveGameObject implements Movable, Collisionabl
         return speedY;
     }
 
+    public void setSpeedX(float x){
+        speedX = x;
+    }
+    public void setSpeedY(float y){
+        speedY = y;
+    }
+
+    public int getPositionX(){
+        return posX;
+    }
+
+    public int getPositionY(){
+        return posY;
+    }
+
+    public float getRepultion(){return  repulsion;}
     @Override
     public void setAcceleration(float xA, float yA) {
 
@@ -58,46 +74,24 @@ public class Ball extends InteractiveGameObject implements Movable, Collisionabl
 
     @Override
     public void Move() {
-        setPositionX(posX + (int)speedX);
-        setPositionY(posY + (int)speedY);
+       // setPositionX(posX + (int)speedX);
+       // setPositionY(posY + (int)speedY);
+        DrawRectangle = new Rect(posX,posY, posX + height, posY + width);
     }
 
-    @Override
-    public void SetMovementBounds(int x, int y, int height, int width) {
-        movementBounds = new Rect(x,y,width,height);
-    }
 
     public void setPositionX(int x){
 
-        if (movementBounds != null) {
-            if (x < movementBounds.left) {
-                x = movementBounds.left;
-                speedX = -speedX / repulsion;
-            } else if (x > movementBounds.right - width) {
-                x = movementBounds.right - width;
-                speedX = -speedX / repulsion;
-            }
-        }
         this.posX = x;
     }
     public void setPositionY(int y){
-        if (movementBounds != null) {
-            if (y < movementBounds.top)
-            {
-                y= movementBounds.top;
-                speedY = -speedY / repulsion;
-            }
-            else if (y> movementBounds.bottom - height){
-                y  = movementBounds.bottom - height;
-                speedY = -speedY / repulsion;
-            }
-        }
+
         this.posY = y;
     }
 
     @Override
     public Rect getDrawRectangle() {
-         return new Rect (posX, posY,posX+width,posY+height);
+         return DrawRectangle;
     }
 
     @Override

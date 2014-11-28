@@ -32,12 +32,13 @@ public class Hole extends GameObject implements Collisionable {
 
     @Override
     public void setTexture(Bitmap b) {
-
+        this.texture = b;
     }
 
     @Override
     public void Draw(Canvas canvas) {
-        canvas.drawRect(getDrawRectangle(), p);
+
+        canvas.drawBitmap(this.texture, null, getDrawRectangle(), p); //drawRect(getDrawRectangle(), p);
     }
 
     @Override

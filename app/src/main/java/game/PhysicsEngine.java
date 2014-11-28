@@ -1,9 +1,11 @@
 package game;
 
+import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.Surface;
 
 /**
@@ -35,6 +37,7 @@ public class PhysicsEngine {
         this.ball = ball;
     }
 
+
     private void Update(SensorEvent event){
 
         if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
@@ -59,18 +62,94 @@ public class PhysicsEngine {
                 break;
         }
 
+
+
+
         ball.setAcceleration(x,y);
+
+        ///проверить есть ли столкновения на следующем ходу
+        //если нет двигать
+        //если есть изменить ускорение в другие стороны
+        CollisionCheck();
+
         ///////collision check
 
-        for (int i = 0; i < getLevel().getWalls().size() ; i++) {
-
-            ball.isIntersect(getLevel().getWalls().get(i).getDrawRectangle());
-
-        }
 
 
         ball.Move();
 
+    }
+
+    private void CollisionCheck(){
+
+        /*detection bounds of */
+
+        Rect bounds  = lvl.getMovementBounds();
+
+        float speedY =  ball.getSpeedY();
+        float speedX = ball.getSpeedX();
+        float nextX = ball.getPositionX() + speedX;
+        float nextY = ball.getPositionY() + speedY;
+        float repulsion = ball.getRepultion();
+
+            if (nextX < bounds.left) {
+                nextX = bounds.left;
+                speedX = -speedX / repulsion;
+
+            } else if (nextX > bounds.right - ball.getDrawRectangle().width()) {
+                nextX = bounds.right - ball.getDrawRectangle().width();
+                speedX = -speedX / repulsion;
+            }
+
+
+            if (nextY < bounds.top)
+            {
+                nextY= bounds.top;
+                speedY = -speedY / repulsion;
+            }
+            else if (nextY> bounds.bottom - ball.getDrawRectangle().height()){
+                nextY = bounds.bottom - ball.getDrawRectangle().height();
+                speedY = -speedY / repulsion;
+            }
+
+
+        for (int i = 0; i < getLevel().getWalls().size() ; i++){
+
+            Rect nextBall = new Rect((int)nextX, (int)nextY, (int)nextX + ball.getDrawRectangle().width(), (int)nextY+ball.getDrawRectangle().height() );
+
+            Rect c  = getLevel().getWalls().get(i).getDrawRectangle();
+
+            if( nextBall.intersects(c.left,c.top,c.right,c.bottom)){
+
+                if (nextBall.left < c.right && nextBall.right > c.right  ) {
+                    nextX = c.right;
+                    speedX = -speedX / repulsion;
+
+                } else if (nextBall.right > c.left && nextBall.left < c.left) {
+                    nextX = c.left - ball.getDrawRectangle().width();
+                    speedX = -speedX / repulsion;
+                }
+
+                if (nextBall.top < c.bottom && nextBall.bottom > c.bottom)
+                {
+                    nextY = c.bottom;
+                    speedY = -speedY / repulsion;
+                }
+                else if (nextBall.bottom > c.top && nextBall.top <  c.top){
+                    nextY =  c.top - ball.getDrawRectangle().height();
+                    speedY = -speedY / repulsion;
+                }
+
+                Log.i("debugTest", "collision");
+            }
+        }
+
+
+        ball.setSpeedY(speedY);
+        ball.setSpeedX(speedX);
+
+        ball.setPositionY((int) nextY);
+        ball.setPositionX((int)nextX);
     }
 
 
