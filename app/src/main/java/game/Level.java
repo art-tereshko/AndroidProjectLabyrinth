@@ -25,10 +25,16 @@ public class Level {
         return holes;
     }
 
+    public ArrayList<Aim> getAims() {
+        return aims;
+    }
+
     private ArrayList<Wall> walls;
     private ArrayList<CircularWall> circularWalls;
     private ArrayList<Cannon> cannons;
     private ArrayList<Hole> holes;
+    private ArrayList<Aim> aims;
+
 
     private Rect movementBounds;
 
@@ -48,6 +54,7 @@ public class Level {
         cannons = new ArrayList<Cannon>();
         walls = new ArrayList<Wall>();
         holes = new ArrayList<Hole>();
+        aims = new ArrayList<Aim>();
         movementBounds = new Rect(0,0, width, height);
 
     }
@@ -58,17 +65,26 @@ public class Level {
      */
     public static Level Level1(int height, int width){
 
+        int wallWidth = width/100 * 5; // 5%
         Level lvl = new Level(height, width);
-        //lvl.addWall(new Wall(0,0, width, 10));
-        //lvl.addWall(new Wall(0,0, 10, height));
-       // lvl.addWall(new Wall(width-10,0, 10, height));
-        lvl.addWall(new Wall(400,70,50,500));
 
-        lvl.addWall(new Wall(700,400,50,500));
+
+        lvl.addWall(new Wall(width/2 -(wallWidth/2), height/100*30, wallWidth, height));
+        lvl.addWall(new Wall(width/4-(wallWidth/2), 0, wallWidth, height/100*70));
+        lvl.addWall(new Wall(width/4*3-(wallWidth/2), 0, wallWidth, height/100*70));
+       // lvl.addWall(new Wall(width-10,0, 10, height));
+       // lvl.addWall(new Wall(400,70,50,500));
+
+     //   lvl.addWall(new Wall(700,400,50,500));
 
       //  lvl.addCircularWall(new CircularWall(50, 300,150));
 
         lvl.addHole(new Hole(1000,300,50,50));
+
+        int aimSize = height/100*5;
+        lvl.addAim(new Aim(width-aimSize*2,0,aimSize, aimSize));
+
+
 
         return lvl;
     }
@@ -99,6 +115,10 @@ public class Level {
 
     public void addCannon(Cannon c) {
         cannons.add(c);
+    }
+
+    public void addAim(Aim c) {
+        aims.add(c);
     }
 
     public void addHole(Hole h) {
