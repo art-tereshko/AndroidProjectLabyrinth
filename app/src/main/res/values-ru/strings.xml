@@ -5,5 +5,10 @@
     <string name="button_continue">Продолжить</string>
     <string name="button_levels">Уровни</string>
     <string name="button_exit">Выход</string>
+    <string name="label_win">Ура, победа!!!</string>
+    <string name="label_lose">Ты проиграл, попробуй еще разок!</string>
+    <string name="button_replay">Попробовать еще раз</string>
+    <string name="button_gotoMenu">Главное меню</string>
+    <string name="button_nextLevel">Следующий уровень</string>
     
 </resources>

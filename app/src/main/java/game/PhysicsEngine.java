@@ -63,8 +63,6 @@ public class PhysicsEngine {
         }
 
 
-
-
         ball.setAcceleration(x,y);
 
         ///проверить есть ли столкновения на следующем ходу
@@ -74,9 +72,17 @@ public class PhysicsEngine {
 
         ///////collision check
 
-
-
         ball.Move();
+
+        //Check for win
+        for(Aim aim: lvl.getAims()){
+            if (aim.isIntersect(ball.getDrawRectangle())){
+
+                //TO DO
+                //Level completed
+
+            }
+        }
 
     }
 

@@ -33,7 +33,7 @@ public class Wall extends GameObject implements  Collisionable{
 
         this.DrawRectangle = new Rect(x,y, x+width, y+height);
 
-        p.setColor(Color.GREEN);
+        p.setColor(Color.LTGRAY);
     }
 
 

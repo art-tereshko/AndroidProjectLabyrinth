@@ -5,5 +5,11 @@
     <string name="button_continue">Continuer</string>
     <string name="button_levels">Niveaux</string>
     <string name="button_exit">Sortie</string>
+    <string name="label_win">Bravo!!!</string>
+    <string name="label_lose">Tu as perdu, essaie encore une fois!</string>
+    <string name="button_replay">Rejouer</string>
+    <string name="button_gotoMenu">Menu</string>
+    <string name="button_nextLevel">Niveau suivant</string>
+
 
 </resources>

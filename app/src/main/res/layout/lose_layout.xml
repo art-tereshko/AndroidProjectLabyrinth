@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".menuActivity"
+    android:background="@drawable/menu_background"
+    >
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/label_lose"
+            android:id="@+id/textView2"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ff001dff"
+            android:layout_marginBottom="50dp"/>
+
+        <Button
+            android:text="@string/button_replay"
+            android:id="@+id/button_start"
+            style="@style/menu_button"
+            android:onClick="start_button_clicked"/>
+
+        <Button
+            android:text="@string/button_gotoMenu"
+            android:id="@+id/button_levels"
+            style="@style/menu_button"/>
+
+    </LinearLayout>
+
+</FrameLayout>
+

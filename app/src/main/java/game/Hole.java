@@ -11,7 +11,6 @@ import android.graphics.Rect;
  */
 public class Hole extends GameObject implements Collisionable {
 
-
     Paint p = new Paint();
     public Hole(int height, int width) {
         super(height, width);

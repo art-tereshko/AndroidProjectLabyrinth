@@ -9,5 +9,10 @@
     <string name="button_exit">Exit</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="label_win">You win!!!</string>
+    <string name="label_lose">You lose!!! Try again!</string>
+    <string name="button_replay">Replay</string>
+    <string name="button_gotoMenu">Menu</string>
+    <string name="button_nextLevel">Next level</string>
 
 </resources>
