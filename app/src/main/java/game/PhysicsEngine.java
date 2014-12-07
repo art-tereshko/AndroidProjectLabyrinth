@@ -8,6 +8,8 @@ import android.hardware.SensorManager;
 import android.util.Log;
 import android.view.Surface;
 
+import com.artem_tereshko.androidproject.GameListener;
+
 /**
  * Created by artem_000 on 11/11/2014.
  */
@@ -15,6 +17,8 @@ public class PhysicsEngine {
 
     Ball ball =null;
     Level lvl;
+
+    GameListener gameListener;
 
     private SensorManager sensorManager = null;
     private Sensor mAccelerometre = null;
@@ -64,26 +68,40 @@ public class PhysicsEngine {
 
 
         ball.setAcceleration(x,y);
-
-        ///проверить есть ли столкновения на следующем ходу
-        //если нет двигать
-        //если есть изменить ускорение в другие стороны
         CollisionCheck();
-
-        ///////collision check
-
         ball.Move();
 
         //Check for win
         for(Aim aim: lvl.getAims()){
             if (aim.isIntersect(ball.getDrawRectangle())){
 
-                //TO DO
-                //Level completed
-
+                if(gameListener!=null){
+                    Log.i("DEBUG", "onGameWin");
+                    gameListener.onGameWin();
+                }
+                else
+                    Log.i("DEBUG", "onGameWin, gameListener is null");
             }
         }
 
+
+        for(Hole hole: lvl.getHoles()){
+            if (hole.isIntersect(ball.getDrawRectangle())){
+                if(gameListener!=null){
+                    Log.i("DEBUG", "onGameLose");
+                    gameListener.onGameLose();
+                }
+                else
+                    Log.i("DEBUG", "onGameLose, gameListener is null");
+            }
+        }
+
+        for (CircularWall w: lvl.getCircularWalls()){
+
+            if( ball.intersects(w,ball.getDrawRectangle() )) {
+                Log.i("DEBUG", "intersection of CircularWall with ball");
+            }
+        }
     }
 
     private void CollisionCheck(){
@@ -119,6 +137,7 @@ public class PhysicsEngine {
             }
 
 
+        //walls detection
         for (int i = 0; i < getLevel().getWalls().size() ; i++){
 
             Rect nextBall = new Rect((int)nextX, (int)nextY, (int)nextX + ball.getDrawRectangle().width(), (int)nextY+ball.getDrawRectangle().height() );
@@ -170,8 +189,15 @@ public class PhysicsEngine {
 
         }
     };
+    public void SetGameListener(GameListener l){
+        gameListener = l;
+    }
+    public void DeleteGameListener(){
+        gameListener = null;
+
+    }
     public void Start(){
-        sensorManager.registerListener(mSensorEventListener, mAccelerometre, SensorManager.SENSOR_DELAY_GAME);
+        sensorManager.registerListener(mSensorEventListener, mAccelerometre, SensorManager.SENSOR_DELAY_UI);
     }
     public  void Pause(){
         sensorManager.unregisterListener(mSensorEventListener);

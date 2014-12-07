@@ -25,7 +25,7 @@ public class Aim extends GameObject implements Collisionable {
 
     @Override
     public boolean isIntersect(Rect r) {
-        return r.intersects(r.left, r.top, r.right, r.bottom);
+        return  DrawRectangle.intersects(r.left, r.top,r.right, r.bottom);
     }
 
     @Override

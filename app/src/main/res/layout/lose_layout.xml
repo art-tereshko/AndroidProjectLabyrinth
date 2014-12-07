@@ -25,14 +25,15 @@
 
         <Button
             android:text="@string/button_replay"
-            android:id="@+id/button_start"
+            android:id="@+id/button_replay"
             style="@style/menu_button"
-            android:onClick="start_button_clicked"/>
+            android:onClick="button_replay_clicked"/>
 
         <Button
             android:text="@string/button_gotoMenu"
-            android:id="@+id/button_levels"
-            style="@style/menu_button"/>
+            android:id="@+id/button_menu"
+            style="@style/menu_button"
+            android:onClick="button_menu_clicked"/>
 
     </LinearLayout>
 

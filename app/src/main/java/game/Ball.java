@@ -2,6 +2,7 @@ package game;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.graphics.Rect;
 
 /**
@@ -101,11 +102,32 @@ public class Ball extends InteractiveGameObject implements Movable, Collisionabl
 
     @Override
     public void Draw(Canvas canvas) {
-        canvas.drawBitmap ( texture, null, getDrawRectangle(), null );
+        if (texture!=null){
+            canvas.drawBitmap ( texture, null, getDrawRectangle(), null );
+        }
+
     }
 
     @Override
     public boolean isIntersect(Rect r) {
        return  DrawRectangle.intersects(r.left, r.top,r.right, r.bottom);
     }
+
+    public  boolean intersects(CircularWall circle, Rect rect)
+    {
+       Point circleDistance= new Point();
+        circleDistance.x = Math.abs(circle.posX - rect.left);
+        circleDistance.y = Math.abs(circle.posY - rect.top);
+
+        if (circleDistance.x > (rect.width()/2 + circle.getRadius())) { return false; }
+        if (circleDistance.y > (rect.height()/2 + circle.getRadius())) { return false; }
+
+        if (circleDistance.x <= (rect.width()/2)) { return true; }
+        if (circleDistance.y <= (rect.width()/2)) { return true; }
+
+        int cornerDistance_sq = (circleDistance.x - rect.width() / 2) ^ 2 + (circleDistance.y - rect.height() / 2) ^ 2;
+
+        return (cornerDistance_sq <= (circle.getRadius()^2));
+    }
+
 }

@@ -10,5 +10,8 @@
     <string name="button_replay">Попробовать еще раз</string>
     <string name="button_gotoMenu">Главное меню</string>
     <string name="button_nextLevel">Следующий уровень</string>
-    
+    <string name="button_level1">Уровень 1</string>
+    <string name="button_level2">Уровень 2</string>
+    <string name="button_level3">Уровень 3</string>
+
 </resources>

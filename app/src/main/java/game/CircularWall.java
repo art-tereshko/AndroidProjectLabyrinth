@@ -18,7 +18,7 @@ public class CircularWall extends GameObject implements Collisionable {
     Paint p;
 
     public CircularWall(int radius, int x, int y){
-        super(x, y);
+        super(x - radius, y -radius, x + radius, y+ radius);
         if (radius<0)
             R =0;
         else
@@ -26,8 +26,11 @@ public class CircularWall extends GameObject implements Collisionable {
 
         DrawRectangle = new Rect(x - radius, y -radius, x + radius, y+ radius);
         p=new Paint();
-        p.setColor(Color.GREEN);
+        p.setColor(Color.LTGRAY);
 
+    }
+    public int getRadius(){
+        return R;
     }
 
     @Override

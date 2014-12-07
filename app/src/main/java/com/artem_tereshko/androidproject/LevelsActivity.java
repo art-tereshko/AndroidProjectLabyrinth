@@ -9,35 +9,41 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
-public class MenuActivity extends Activity {
+public class LevelsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_menu);
 
-
+        setContentView(R.layout.activity_levels);
     }
 
-    public void start_button_clicked(View v){
+
+    public void button_level1_clicked(View view) {
+
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("level", 1);
         startActivity(intent);
     }
-    public void  exit_button_clicked(View v){
-        moveTaskToBack(true);
+
+    public void button_level2_clicked(View view) {
+
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("level", 2);
+        startActivity(intent);
     }
 
+    public void button_level3_clicked(View view) {
 
-    public void button_levels_clicked(View view) {
-        Intent intent = new Intent(this, LevelsActivity.class);
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("level", 3);
         startActivity(intent);
     }
 }

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -13,23 +14,24 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="@string/button_start"
-            android:id="@+id/button_start"
+            android:text="@string/button_level1"
+            android:id="@+id/button_level1"
             style="@style/menu_button"
-            android:onClick="start_button_clicked"/>
+            android:onClick="button_level1_clicked"/>
 
         <Button
-            android:text="@string/button_levels"
-            android:id="@+id/button_levels"
+            android:text="@string/button_level2"
+            android:id="@+id/button_level2"
             style="@style/menu_button"
-            android:onClick="button_levels_clicked"/>
+            android:onClick="button_level2_clicked"/>
 
         <Button
-            android:text="@string/button_exit"
-            android:id="@+id/button_exit"
+            android:text="@string/button_level3"
+            android:id="@+id/button_level3"
             style="@style/menu_button"
-            android:onClick="exit_button_clicked"/>
+            android:onClick="button_level3_clicked"/>
 
     </LinearLayout>
 
 </FrameLayout>
+

@@ -25,14 +25,15 @@
 
         <Button
             android:text="@string/button_nextLevel"
-            android:id="@+id/button_start"
+            android:id="@+id/button_next_level"
             style="@style/menu_button"
-            android:onClick="start_button_clicked"/>
+            android:onClick="button_next_level_clicked"/>
 
         <Button
             android:text="@string/button_gotoMenu"
-            android:id="@+id/button_levels"
-            style="@style/menu_button"/>
+            android:id="@+id/button_menu"
+            style="@style/menu_button"
+            android:onClick="button_menu_clicked"/>
 
     </LinearLayout>
 

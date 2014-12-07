@@ -6,6 +6,9 @@
     <string name="button_start">Start</string>
     <string name="button_continue">Continue</string>
     <string name="button_levels">Levels</string>
+    <string name="button_level1">Level 1</string>
+    <string name="button_level2">Level 2</string>
+    <string name="button_level3">Level 3</string>
     <string name="button_exit">Exit</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="hello_world">Hello world!</string>
@@ -14,5 +17,6 @@
     <string name="button_replay">Replay</string>
     <string name="button_gotoMenu">Menu</string>
     <string name="button_nextLevel">Next level</string>
+    <string name="title_activity_levels">LevelsActivity</string>
 
 </resources>

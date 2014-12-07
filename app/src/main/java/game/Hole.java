@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 /**
  * Created by artem_000 on 11/11/2014.
@@ -37,7 +38,11 @@ public class Hole extends GameObject implements Collisionable {
     @Override
     public void Draw(Canvas canvas) {
 
-        canvas.drawBitmap(this.texture, null, getDrawRectangle(), p); //drawRect(getDrawRectangle(), p);
+        if (texture!=null){
+            canvas.drawBitmap(texture, null, getDrawRectangle(), null);
+        }
+        else
+            canvas.drawOval(new RectF(getDrawRectangle()), p);
     }
 
     @Override

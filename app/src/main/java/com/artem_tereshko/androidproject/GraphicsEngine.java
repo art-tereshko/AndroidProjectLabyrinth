@@ -25,8 +25,9 @@ import game.Wall;
 /**
  * Created by artem_tereshko on 10/11/2014.
  */
-public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callback {
+public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callback, GameListener {
 
+    GameListener gameListener;
     private DrawThread drawThread;
     PhysicsEngine engine;
 
@@ -38,11 +39,15 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
     float background_gradient_colors_positions[] = new float[3];
     //endregion
 
-    public GraphicsEngine(Context context,SensorManager manager, int displayRotaion) {
+    int levelIndex = 0;
+
+    public GraphicsEngine(Context context,SensorManager manager, int displayRotaion, int levelIndex) {
         super(context);
 
         getHolder().addCallback(this);
         getHolder().setFormat(PixelFormat.RGBA_8888);
+
+        this.levelIndex = levelIndex;
 
         background_gradient_colors_positions[0] = 0;
         background_gradient_colors_positions[1] = 0.5f;
@@ -55,7 +60,14 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         gradientPaint = new Paint();
 
         engine = new PhysicsEngine(manager, displayRotaion);
+        engine.SetGameListener(this);
 
+    }
+    public void SetGameListener(GameListener l){
+        gameListener = l;
+    }
+    public void DeleteGameListener(){
+        gameListener = null;
 
     }
 
@@ -66,9 +78,19 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         Ball b = new Ball( balltexture.getHeight(),balltexture.getWidth() );
         b.setTexture(balltexture);
         engine.setBall(b);
+
+        if (levelIndex == 1 )
         engine.setLevel(Level.Level1(getHeight(), getWidth()));
-        Bitmap holetexture = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
-        engine.getLevel().getHoles().get(0).setTexture(holetexture);
+        else if(levelIndex == 2)
+            engine.setLevel(Level.Level2(getHeight(), getWidth()));
+        else if (levelIndex == 3)
+            engine.setLevel(Level.Level3(getHeight(), getWidth()));
+
+        Bitmap holeTexture = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
+        for (Hole hole: engine.getLevel().getHoles()){
+            hole.setTexture(holeTexture);
+        }
+
         engine.Start();
 
         Canvas canvas = null;
@@ -147,6 +169,16 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
     public void Start() {
      //   engine.Start();
 
+    }
+
+    @Override
+    public void onGameWin() {
+        this.gameListener.onGameWin();
+    }
+
+    @Override
+    public void onGameLose() {
+        this.gameListener.onGameLose();
     }
 
     public class DrawThread extends Thread {

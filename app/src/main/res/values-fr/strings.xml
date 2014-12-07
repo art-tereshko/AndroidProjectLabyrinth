@@ -10,6 +10,9 @@
     <string name="button_replay">Rejouer</string>
     <string name="button_gotoMenu">Menu</string>
     <string name="button_nextLevel">Niveau suivant</string>
+    <string name="button_level1">Niveau 1</string>
+    <string name="button_level2">Niveau 2</string>
+    <string name="button_level3">Niveau 3</string>
 
 
 </resources>

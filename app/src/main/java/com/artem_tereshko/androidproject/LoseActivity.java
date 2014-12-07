@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-
-public class MenuActivity extends Activity {
-
+/**
+ * Created by Artem Tereshko on 05/12/2014.
+ * AndroidProject
+ */
+public class LoseActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,23 +23,19 @@ public class MenuActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.lose_layout);
 
 
     }
 
-    public void start_button_clicked(View v){
+    public void button_replay_clicked(View view) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra("level", 1);
         startActivity(intent);
     }
-    public void  exit_button_clicked(View v){
-        moveTaskToBack(true);
-    }
 
-
-    public void button_levels_clicked(View view) {
-        Intent intent = new Intent(this, LevelsActivity.class);
+    public void button_menu_clicked(View view) {
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 }
+
