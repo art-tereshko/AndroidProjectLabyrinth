@@ -19,6 +19,7 @@ public abstract class GameObject extends Drawable {
         posX = posY = 0;
         this.height = height;
         this.width = width;
+
         DrawRectangle = new Rect(posX, posY,posX+ width, posY+height );
     }
 

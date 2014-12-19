@@ -61,15 +61,15 @@ public class Ball extends InteractiveGameObject implements Movable, Collisionabl
     public void setAcceleration(float xA, float yA) {
 
         speedX += xA;
-        if (speedX > maxSpeed)
+        if (speedX > maxSpeed)//droite
             speedX = maxSpeed;
-        if (speedX < -maxSpeed)
+        if (speedX < -maxSpeed)//gauche
             speedX = -maxSpeed;
 
         speedY += yA;
-        if (speedY > maxSpeed)
+        if (speedY > maxSpeed)//haut
             speedY = maxSpeed;
-        if (speedY < -maxSpeed)
+        if (speedY < -maxSpeed)//bas
             speedY = -maxSpeed;
     }
 

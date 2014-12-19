@@ -109,13 +109,14 @@ public class PhysicsEngine {
         /*detection bounds of */
 
         Rect bounds  = lvl.getMovementBounds();
-
+        //vitesse de la balle
         float speedY =  ball.getSpeedY();
         float speedX = ball.getSpeedX();
+        //position où je veux aller
         float nextX = ball.getPositionX() + speedX;
         float nextY = ball.getPositionY() + speedY;
         float repulsion = ball.getRepultion();
-
+        //bord gauche
             if (nextX < bounds.left) {
                 nextX = bounds.left;
                 speedX = -speedX / repulsion;

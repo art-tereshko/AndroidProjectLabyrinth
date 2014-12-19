@@ -13,7 +13,7 @@ import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import game.Aim;
+
 import game.Ball;
 import game.CircularWall;
 import game.Hole;
@@ -74,7 +74,9 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
+        //chargement de la ressource
         balltexture = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+        //instancie objet bille
         Ball b = new Ball( balltexture.getHeight(),balltexture.getWidth() );
         b.setTexture(balltexture);
         engine.setBall(b);
@@ -90,9 +92,9 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         for (Hole hole: engine.getLevel().getHoles()){
             hole.setTexture(holeTexture);
         }
-
+        //start accelerometer
         engine.Start();
-
+        //---------------------- a tester sans
         Canvas canvas = null;
         try {
             canvas = getHolder().lockCanvas(null);
@@ -103,7 +105,8 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
                 getHolder().unlockCanvasAndPost(canvas);
             }
         }
-
+        //----------------------
+        //start drawer
         drawThread = new DrawThread(getHolder(), this);
         drawThread.setRunning(true);
         drawThread.start();
@@ -131,7 +134,7 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         
     }
 
-    protected void Draw(Canvas canvas) {
+    protected void Draw(Canvas canvas) {    //appelé à chaque update
 
         canvas.drawPaint(gradientPaint);
 
@@ -148,10 +151,7 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
             h.Draw(canvas);
         }
 
-        for (Aim h:  engine.getLevel().getAims())
-        {
-            h.Draw(canvas);
-        }
+
 
         engine.getBall().Draw(canvas);
 

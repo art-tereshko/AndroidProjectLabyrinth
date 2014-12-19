@@ -14,25 +14,25 @@ public class GameActivity extends Activity implements GameListener {
 
     GraphicsEngine graphicsEngine;
 
-    int CurrenrLevel = 0;
+    int currentLevel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        //landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-
+        //recupere l'intent
         Intent intent = getIntent();
-        CurrenrLevel = intent.getIntExtra("level", 1);
-
+        currentLevel = intent.getIntExtra("level", 1);
+        //gestion du giroscope
         SensorManager manager = (SensorManager) getBaseContext().getSystemService(Service.SENSOR_SERVICE);
-        graphicsEngine = new GraphicsEngine(this, manager, windowManager.getDefaultDisplay().getRotation(), CurrenrLevel);
+        graphicsEngine = new GraphicsEngine(this, manager, windowManager.getDefaultDisplay().getRotation(), currentLevel);
         graphicsEngine.SetGameListener(this);
         setContentView(graphicsEngine);
 
@@ -67,8 +67,8 @@ public class GameActivity extends Activity implements GameListener {
     public void onGameWin() {
 
         Intent intent = new Intent(this, WinActivity.class);
-        if (CurrenrLevel < 3)
-            intent.putExtra("level", CurrenrLevel+1);
+        if (currentLevel < 3)
+            intent.putExtra("level", currentLevel +1);
         else
             intent.putExtra("level", 1);
 
