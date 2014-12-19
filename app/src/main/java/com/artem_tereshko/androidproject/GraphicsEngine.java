@@ -13,7 +13,7 @@ import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-
+import game.Aim;
 import game.Ball;
 import game.CircularWall;
 import game.Hole;
@@ -151,6 +151,10 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
             h.Draw(canvas);
         }
 
+        for (Aim h:  engine.getLevel().getAims())
+        {
+            h.Draw(canvas);
+        }
 
 
         engine.getBall().Draw(canvas);
