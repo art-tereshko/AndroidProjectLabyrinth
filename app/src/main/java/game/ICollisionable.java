@@ -5,7 +5,7 @@ import game.shape.ShapeRectangle;
 
 public interface ICollisionable {
 
-    boolean isIntersect(ShapeCircle circle);
+    boolean isIntersect(ShapeCircle shapeCircle);
     boolean isIntersect(ShapeRectangle shapeRectangle);
 
 

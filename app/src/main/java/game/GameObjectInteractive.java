@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 
 import game.shape.ShapeCircle;
 
-public class GameObjectInteractive extends ShapeCircle{
+public abstract class GameObjectInteractive extends ShapeCircle{
 
     protected float speedX = 10;
     protected float speedY = 10;
@@ -46,10 +46,5 @@ public class GameObjectInteractive extends ShapeCircle{
 
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
-    }
-
-    @Override
-    public void Draw(Canvas canvas) {
-        //on redéfinira ca dans les classes filles
     }
 }
