@@ -10,6 +10,11 @@ import android.view.Surface;
 
 import com.artem_tereshko.androidproject.GameListener;
 
+import game.object.circle.Aim;
+import game.object.circle.Ball;
+import game.object.circle.CircularWall;
+import game.object.circle.Hole;
+
 /**
  * Created by artem_000 on 11/11/2014.
  */
@@ -22,15 +27,15 @@ public class PhysicsEngine {
 
     private SensorManager sensorManager = null;
     private Sensor mAccelerometre = null;
-    int displayRotaion;
+    int displayRotation;
 
     private float x=0,y=0;
 
-    public PhysicsEngine(SensorManager manager ,int displayRotaion){
+    public PhysicsEngine(SensorManager manager ,int displayRotation){
 
         sensorManager = manager;
         mAccelerometre = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        this.displayRotaion =  displayRotaion;
+        this.displayRotation = displayRotation;
 
     }
     public void setLevel(Level lvl){
@@ -47,7 +52,7 @@ public class PhysicsEngine {
         if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
             return;
 
-        switch (displayRotaion) {
+        switch (displayRotation) {
             case Surface.ROTATION_0:
                 x = -event.values[0];
                 y = event.values[1];
@@ -68,40 +73,9 @@ public class PhysicsEngine {
 
 
         ball.setAcceleration(x,y);
+        //detection des collisions
         CollisionCheck();
         ball.Move();
-
-        //Check for win
-        for(Aim aim: lvl.getAims()){
-            if (aim.isIntersect(ball.getDrawRectangle())){
-
-                if(gameListener!=null){
-                    Log.i("DEBUG", "onGameWin");
-                    gameListener.onGameWin();
-                }
-                else
-                    Log.i("DEBUG", "onGameWin, gameListener is null");
-            }
-        }
-
-
-        for(Hole hole: lvl.getHoles()){
-            if (hole.isIntersect(ball.getDrawRectangle())){
-                if(gameListener!=null){
-                    Log.i("DEBUG", "onGameLose");
-                    gameListener.onGameLose();
-                }
-                else
-                    Log.i("DEBUG", "onGameLose, gameListener is null");
-            }
-        }
-
-        for (CircularWall w: lvl.getCircularWalls()){
-
-            if( ball.intersects(w,ball.getDrawRectangle() )) {
-                Log.i("DEBUG", "intersection of CircularWall with ball");
-            }
-        }
     }
 
     private void CollisionCheck(){
@@ -113,9 +87,9 @@ public class PhysicsEngine {
         float speedY =  ball.getSpeedY();
         float speedX = ball.getSpeedX();
         //position où je veux aller
-        float nextX = ball.getPositionX() + speedX;
-        float nextY = ball.getPositionY() + speedY;
-        float repulsion = ball.getRepultion();
+        float nextX = ball.getPosX() + speedX;
+        float nextY = ball.getPosY() + speedY;
+        float repulsion = ball.getRepulsion();
         //bord gauche
             if (nextX < bounds.left) {
                 nextX = bounds.left;
@@ -170,12 +144,48 @@ public class PhysicsEngine {
             }
         }
 
+        //Check for win
+        for(Aim aim: lvl.getAims()){
+            if (aim.isIntersect(ball)){
+
+                if(gameListener!=null){
+                    Log.i("DEBUG", "onGameWin");
+                    gameListener.onGameWin();
+                }
+                else
+                    Log.i("DEBUG", "onGameWin, gameListener is null");
+            }
+        }
+
+        //lose
+        for(Hole hole: lvl.getHoles()){
+            if (hole.isIntersect(ball)){
+                if(gameListener!=null){
+                    Log.i("DEBUG", "onGameLose");
+                    gameListener.onGameLose();
+                }
+                else
+                    Log.i("DEBUG", "onGameLose, gameListener is null");
+            }
+        }
+        //Circular Walls
+        for (CircularWall w: lvl.getCircularWalls()){
+
+            if( ball.isIntersect(w)) {
+                Log.i("DEBUG", "intersection of CircularWall with ball");
+                speedX = -speedX / repulsion;
+                speedY = -speedY / repulsion;
+
+            }
+        }
+
+
 
         ball.setSpeedY(speedY);
         ball.setSpeedX(speedX);
 
-        ball.setPositionY((int) nextY);
-        ball.setPositionX((int)nextX);
+        ball.setPosY((int) nextY);
+        ball.setPosX((int)nextX);
     }
 
 

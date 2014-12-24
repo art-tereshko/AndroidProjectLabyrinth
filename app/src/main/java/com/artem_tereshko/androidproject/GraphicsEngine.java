@@ -13,13 +13,13 @@ import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import game.Aim;
-import game.Ball;
-import game.CircularWall;
-import game.Hole;
 import game.Level;
 import game.PhysicsEngine;
-import game.Wall;
+import game.object.circle.Aim;
+import game.object.circle.Ball;
+import game.object.circle.CircularWall;
+import game.object.circle.Hole;
+import game.object.rectangle.Wall;
 
 
 /**
@@ -77,7 +77,7 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         //chargement de la ressource
         balltexture = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         //instancie objet bille
-        Ball b = new Ball( balltexture.getHeight(),balltexture.getWidth() );
+        Ball b = new Ball( balltexture.getWidth()/2, 0, 0);
         b.setTexture(balltexture);
         engine.setBall(b);
 
