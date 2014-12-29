@@ -171,7 +171,12 @@ public class PhysicsEngine {
         //Circular Walls
         for (CircularWall w: lvl.getCircularWalls()){
 
-            if( ball.isIntersect(w)) {
+            float nextXX = ball.getPosX() + speedX;
+            float nextYY = ball.getPosY() + speedY;
+
+            Ball w2 = new Ball(ball.get_radius(), (int)nextXX, (int)nextYY);
+
+            if( w.isIntersect(w2)) {
                 Log.i("DEBUG", "intersection of CircularWall with ball");
                 speedX = -speedX / repulsion;
                 speedY = -speedY / repulsion;
