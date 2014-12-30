@@ -144,9 +144,40 @@ public class PhysicsEngine {
             }
         }
 
+
+
+        //Circular Walls
+        Ball tmp  = new Ball(ball.get_radius(), ball.getPosX() + (int)speedX, ball.getPosY() + (int) speedY);
+        for (CircularWall w: lvl.getCircularWalls()){
+
+            if( w.isIntersect(tmp)) {
+                Log.i("DEBUG", "intersection of CircularWall with ball");
+                speedX = -speedX / repulsion;
+                speedY = -speedY / repulsion;
+
+                nextX = ball.getPosX();
+                nextY = ball.getPosY();
+
+            }
+        }
+
+        //Check for lose
+        for(Hole hole: lvl.getHoles()){
+
+            if (hole.isIntersect(tmp)){
+                if(gameListener!=null){
+                    Log.i("DEBUG", "onGameLose");
+                    gameListener.onGameLose();
+                }
+                else
+                    Log.i("DEBUG", "onGameLose, gameListener is null");
+            }
+        }
+
+
         //Check for win
         for(Aim aim: lvl.getAims()){
-            if (aim.isIntersect(ball)){
+            if (aim.isIntersect(tmp)){
 
                 if(gameListener!=null){
                     Log.i("DEBUG", "onGameWin");
@@ -156,35 +187,6 @@ public class PhysicsEngine {
                     Log.i("DEBUG", "onGameWin, gameListener is null");
             }
         }
-
-        //lose
-        for(Hole hole: lvl.getHoles()){
-            if (hole.isIntersect(ball)){
-                if(gameListener!=null){
-                    Log.i("DEBUG", "onGameLose");
-                    gameListener.onGameLose();
-                }
-                else
-                    Log.i("DEBUG", "onGameLose, gameListener is null");
-            }
-        }
-        //Circular Walls
-        for (CircularWall w: lvl.getCircularWalls()){
-
-            float nextXX = ball.getPosX() + speedX;
-            float nextYY = ball.getPosY() + speedY;
-
-            Ball w2 = new Ball(ball.get_radius(), (int)nextXX, (int)nextYY);
-
-            if( w.isIntersect(w2)) {
-                Log.i("DEBUG", "intersection of CircularWall with ball");
-                speedX = -speedX / repulsion;
-                speedY = -speedY / repulsion;
-
-            }
-        }
-
-
 
         ball.setSpeedY(speedY);
         ball.setSpeedX(speedX);
@@ -213,7 +215,7 @@ public class PhysicsEngine {
 
     }
     public void Start(){
-        sensorManager.registerListener(mSensorEventListener, mAccelerometre, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(mSensorEventListener, mAccelerometre, SensorManager.SENSOR_DELAY_GAME);
     }
     public  void Pause(){
         sensorManager.unregisterListener(mSensorEventListener);
