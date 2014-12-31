@@ -94,32 +94,30 @@ public class Level {
     public static Level Level2(int height, int width) {
         Level lvl = new Level(height, width);
         int wallWidth = height / 100 * 5;
-        lvl.addCircularWall(new CircularWall(wallWidth, width / 4, 0));//1
+        lvl.addCircularWall(new CircularWall(wallWidth, width/4 , 0- wallWidth));//1
         lvl.addWall(new Wall(0, height / 7, wallWidth, width / 2));//2
-        lvl.addCircularWall(new CircularWall(wallWidth / 2, width / 2, height / 7 + wallWidth / 2));//3
+        lvl.addCircularWall(new CircularWall(wallWidth / 2, width / 2 - wallWidth, height / 7 + wallWidth / 2 - wallWidth));//3
         lvl.addWall(new Wall(width / 8 * 5, 0, height / 7 * 2, wallWidth));//4
-        lvl.addCircularWall(new CircularWall(wallWidth, width / 8 * 5 + wallWidth / 2, height / 7 + wallWidth / 2));//5
+        lvl.addCircularWall(new CircularWall(wallWidth, width / 8 * 5 + wallWidth / 2 - wallWidth, height / 7 + wallWidth ));//5
         lvl.addWall(new Wall(width / 8 * 6, height / 7, wallWidth, width / 7));//6
         lvl.addWall(new Wall(0, height / 2, wallWidth, width / 8 * 7));//7
-        lvl.addWall(new Wall(width / 8 * 7 - wallWidth, wallWidth, height / 16 * 3, height / 16 * 5));//8
-        lvl.addCircularWall(new CircularWall(wallWidth + (wallWidth / 2), width / 8 * 7 - wallWidth / 2, height / 16 * 7));//9
+       // lvl.addWall(new Wall(width / 8 * 7 - wallWidth, wallWidth, height / 16 * 13, height / 16 * 5));//8
+        lvl.addCircularWall(new CircularWall(wallWidth + (wallWidth / 2), width / 8 * 7 - wallWidth * 2, height / 16 * 7));//9
         lvl.addHole(new Hole(wallWidth, width / 8 * 7 - wallWidth, height / 16 * 4));//10
         lvl.addWall(new Wall(0, height / 16 * 5, wallWidth, width / 8 * 2));//11
         lvl.addWall(new Wall(width / 8 * 2 + wallWidth * 2, height / 16 * 5, wallWidth, width / 16 * 3));//12
-        lvl.addHole(new Hole(wallWidth, width / 8 * 2 + wallWidth / 2, height / 16 * 5));//13
-        lvl.addWall(new Wall(width / 8 * 5, height / 14 * 10, wallWidth, width));
-        ;//14
-        lvl.addCircularWall(new CircularWall(wallWidth + (wallWidth / 2), width, height / 14 * 10 + wallWidth / 2));//15
+        lvl.addHole(new Hole(wallWidth, width / 8 * 2 , height / 16 * 5));//13
+        lvl.addWall(new Wall(width / 8 * 5, height / 14 * 10, wallWidth, width));//14
+       // lvl.addCircularWall(new CircularWall(wallWidth + (wallWidth / 2), width, height / 14 * 10 + wallWidth / 2));//15
         lvl.addCircularWall(new CircularWall(wallWidth + (wallWidth / 2), width / 2, height / 14 * 13));//16
-        lvl.addAim(new Aim(wallWidth * 2, width / 16 * 15, height / 14 * 12));//17
+        lvl.addAim(new Aim(wallWidth, width / 16 * 15, height / 14 * 12));//17
         lvl.addHole(new Hole(wallWidth, width / 8 * 5, height / 14 * 13));//18
-        lvl.addHole(new Hole(wallWidth, width / 16 * 14, height / 14 * 11));//19
-        lvl.addAim(new Aim(wallWidth * 2, width / 16, height / 14 * 12));//20
-        lvl.addHole(new Hole(wallWidth, width / 16, height / 14 * 10));//21
-        lvl.addHole(new Hole(wallWidth, width / 16 * 3, height / 14 * 13));//22
-        lvl.addWall(new Wall(width / 16 * 5, height / 14 * 10, height, wallWidth));
-        ;//23
-        lvl.addCircularWall(new CircularWall(wallWidth + wallWidth / 2, width / 16 * 5 + wallWidth / 2, height / 14 * 10));//24
+        lvl.addHole(new Hole(wallWidth, width / 16 * 14, height / 14 * 11 - wallWidth/2));//19
+        lvl.addAim(new Aim(wallWidth, width / 16, height / 14 * 12));//20
+        lvl.addHole(new Hole(wallWidth, width / 16 - wallWidth, height / 14 * 10));//21
+        lvl.addHole(new Hole(wallWidth, width / 16 * 3 , height / 14 * 13 - wallWidth/2));//22
+        lvl.addWall(new Wall(width / 16 * 5, height / 14 * 10, height, wallWidth));//23
+        lvl.addCircularWall(new CircularWall(wallWidth + wallWidth / 2, width / 16 * 5 -wallWidth  , height / 14 * 10));//24
         return lvl;
     }
 
