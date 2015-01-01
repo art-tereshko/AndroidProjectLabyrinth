@@ -13,6 +13,7 @@ import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import game.GameObject;
 import game.Level;
 import game.PhysicsEngine;
 import game.object.circle.Aim;
@@ -89,9 +90,15 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
             engine.setLevel(Level.Level3(getHeight(), getWidth()));
 
         Bitmap holeTexture = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
+        for (GameObject gameObject : engine.getLevel().get_gameObjectArrayList()){
+            if (gameObject.getClass().equals(Hole.class)) {
+                gameObject.setTexture(holeTexture);
+            }
+        }
+/*
         for (Hole hole: engine.getLevel().getHoles()){
             hole.setTexture(holeTexture);
-        }
+}*/
         //start accelerometer
         engine.Start();
         //---------------------- a tester sans
@@ -138,27 +145,11 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
 
         canvas.drawPaint(gradientPaint);
 
-        for (Wall wall : engine.getLevel().getWalls()) {
-            wall.Draw(canvas);
+        for (GameObject gameObject : engine.getLevel().get_gameObjectArrayList()){
+                gameObject.Draw(canvas);
         }
-
-        for (CircularWall circularWall : engine.getLevel().getCircularWalls()) {
-            circularWall.Draw(canvas);
-        }
-
-        for (Hole h:  engine.getLevel().getHoles())
-        {
-            h.Draw(canvas);
-        }
-
-        for (Aim h:  engine.getLevel().getAims())
-        {
-            h.Draw(canvas);
-        }
-
 
         engine.getBall().Draw(canvas);
-
     }
 
 

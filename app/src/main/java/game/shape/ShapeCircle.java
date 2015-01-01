@@ -3,9 +3,9 @@ package game.shape;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-import game.GameObjectCollisionable;
+import game.GameObject;
 
-public abstract class ShapeCircle extends GameObjectCollisionable {
+public abstract class ShapeCircle extends GameObject {
 //   # is the x and y point
 //
 //   -----*--*----

@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 
-public abstract class GameObject extends Drawable {
+public abstract class GameObject extends Drawable implements ICollisionable{
 
     protected int posX = 0;
     protected int posY = 0;

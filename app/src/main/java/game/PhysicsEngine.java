@@ -14,6 +14,7 @@ import game.object.circle.Aim;
 import game.object.circle.Ball;
 import game.object.circle.CircularWall;
 import game.object.circle.Hole;
+import game.object.rectangle.Wall;
 
 /**
  * Created by artem_000 on 11/11/2014.
@@ -112,82 +113,67 @@ public class PhysicsEngine {
             }
 
 
-        //walls detection
-        for (int i = 0; i < getLevel().getWalls().size() ; i++){
 
-            Rect nextBall = new Rect((int)nextX, (int)nextY, (int)nextX + ball.getDrawRectangle().width(), (int)nextY+ball.getDrawRectangle().height() );
+        //gameobject detection
+        Ball nextBall  = new Ball(ball.get_radius(), ball.getPosX() + (int)speedX, ball.getPosY() + (int) speedY);
+        for (GameObject gameObject : getLevel().get_gameObjectArrayList()) {
+            if ( gameObject.isIntersect(nextBall)) {
+                //walls detection
+                if (gameObject.getClass().equals(Wall.class)) {
+                    Rect rectNextBall = nextBall.getDrawRectangle();
+                    Rect rectGameObject = gameObject.getDrawRectangle();
+                    //collision
+                    if (rectNextBall.left < rectGameObject.right && rectNextBall.right > rectGameObject.right) {
+                        nextX = rectGameObject.right;
+                        speedX = -speedX / repulsion;
 
-            Rect c  = getLevel().getWalls().get(i).getDrawRectangle();
+                    } else if (rectNextBall.right > rectGameObject.left && rectNextBall.left < rectGameObject.left) {
+                        nextX = rectGameObject.left - ball.getDrawRectangle().width();
+                        speedX = -speedX / repulsion;
+                    }
 
-            if( nextBall.intersects(c.left,c.top,c.right,c.bottom)){
+                    if (rectNextBall.top < rectGameObject.bottom && rectNextBall.bottom > rectGameObject.bottom) {
+                        nextY = rectGameObject.bottom;
+                        speedY = -speedY / repulsion;
+                    } else if (rectNextBall.bottom > rectGameObject.top && rectNextBall.top < rectGameObject.top) {
+                        nextY = rectGameObject.top - ball.getDrawRectangle().height();
+                        speedY = -speedY / repulsion;
+                    }
 
-                if (nextBall.left < c.right && nextBall.right > c.right  ) {
-                    nextX = c.right;
+                    Log.i("debugTest", "collision");
+                }
+
+                //Circular Walls
+                if (gameObject.getClass().equals(CircularWall.class)) {
+                    Log.i("DEBUG", "intersection of CircularWall with ball");
                     speedX = -speedX / repulsion;
-
-                } else if (nextBall.right > c.left && nextBall.left < c.left) {
-                    nextX = c.left - ball.getDrawRectangle().width();
-                    speedX = -speedX / repulsion;
-                }
-
-                if (nextBall.top < c.bottom && nextBall.bottom > c.bottom)
-                {
-                    nextY = c.bottom;
                     speedY = -speedY / repulsion;
-                }
-                else if (nextBall.bottom > c.top && nextBall.top <  c.top){
-                    nextY =  c.top - ball.getDrawRectangle().height();
-                    speedY = -speedY / repulsion;
+
+                    nextX = ball.getPosX();
+                    nextY = ball.getPosY();
                 }
 
-                Log.i("debugTest", "collision");
+
+                //Hole
+                if (gameObject.getClass().equals(Hole.class)) {
+                    if (gameListener != null) {
+                        Log.i("DEBUG", "onGameLose");
+                        gameListener.onGameLose();
+                    } else
+                        Log.i("DEBUG", "onGameLose, gameListener is null");
+                }
+
+                //Aim
+                if (gameObject.getClass().equals(Aim.class)) {
+                    if (gameListener != null) {
+                        Log.i("DEBUG", "onGameWin");
+                        gameListener.onGameWin();
+                    } else
+                        Log.i("DEBUG", "onGameWin, gameListener is null");
+                }
+
             }
         }
-
-
-
-        //Circular Walls
-        Ball tmp  = new Ball(ball.get_radius(), ball.getPosX() + (int)speedX, ball.getPosY() + (int) speedY);
-        for (CircularWall w: lvl.getCircularWalls()){
-
-            if( w.isIntersect(tmp)) {
-                Log.i("DEBUG", "intersection of CircularWall with ball");
-                speedX = -speedX / repulsion;
-                speedY = -speedY / repulsion;
-
-                nextX = ball.getPosX();
-                nextY = ball.getPosY();
-
-            }
-        }
-
-        //Check for lose
-        for(Hole hole: lvl.getHoles()){
-
-            if (hole.isIntersect(tmp)){
-                if(gameListener!=null){
-                    Log.i("DEBUG", "onGameLose");
-                    gameListener.onGameLose();
-                }
-                else
-                    Log.i("DEBUG", "onGameLose, gameListener is null");
-            }
-        }
-
-
-        //Check for win
-        for(Aim aim: lvl.getAims()){
-            if (aim.isIntersect(tmp)){
-
-                if(gameListener!=null){
-                    Log.i("DEBUG", "onGameWin");
-                    gameListener.onGameWin();
-                }
-                else
-                    Log.i("DEBUG", "onGameWin, gameListener is null");
-            }
-        }
-
         ball.setSpeedY(speedY);
         ball.setSpeedX(speedX);
 

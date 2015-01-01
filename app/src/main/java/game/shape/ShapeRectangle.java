@@ -1,11 +1,10 @@
 package game.shape;
 
 import android.graphics.Canvas;
-import android.graphics.Rect;
 
-import game.GameObjectCollisionable;
+import game.GameObject;
 
-public class ShapeRectangle extends GameObjectCollisionable {
+public class ShapeRectangle extends GameObject {
 
     public ShapeRectangle(int coordinateX, int coordinateY, int height, int width) {
         super(coordinateX, coordinateY, height, width);
