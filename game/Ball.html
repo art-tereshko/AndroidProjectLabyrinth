@@ -146,7 +146,7 @@ implements <a href="../game/Movable.html" title="interface in game">Movable</a>,
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;game.<a href="../game/GameObject.html" title="class in game">GameObject</a></h3>
-<code><a href="../game/GameObject.html#DrawRectangle">DrawRectangle</a>, <a href="../game/GameObject.html#height">height</a>, <a href="../game/GameObject.html#posX">posX</a>, <a href="../game/GameObject.html#posY">posY</a>, <a href="../game/GameObject.html#width">width</a></code></li>
+<code><a href="../game/GameObject.html#DrawRectangle">DrawRectangle</a>, <a href="../game/GameObject.html#_height">_height</a>, <a href="../game/GameObject.html#_posX">_posX</a>, <a href="../game/GameObject.html#_posY">_posY</a>, <a href="../game/GameObject.html#_width">_width</a></code></li>
 </ul>
 </li>
 </ul>
@@ -162,16 +162,16 @@ implements <a href="../game/Movable.html" title="interface in game">Movable</a>,
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><strong><a href="../game/Ball.html#Ball(int, int)">Ball</a></strong>(int&nbsp;height,
-    int&nbsp;width)</code>
+<td class="colOne"><code><strong><a href="../game/Ball.html#Ball(int, int)">Ball</a></strong>(int&nbsp;_height,
+    int&nbsp;_width)</code>
 <div class="block">The Ball will be positioned in left top corner of the window</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colOne"><code><strong><a href="../game/Ball.html#Ball(int, int, int, int)">Ball</a></strong>(int&nbsp;coordinateX,
     int&nbsp;coordinateY,
-    int&nbsp;height,
-    int&nbsp;width)</code>&nbsp;</td>
+    int&nbsp;_height,
+    int&nbsp;_width)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -221,8 +221,8 @@ implements <a href="../game/Movable.html" title="interface in game">Movable</a>,
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../game/Ball.html#SetMovementBounds(int, int, int, int)">SetMovementBounds</a></strong>(int&nbsp;x,
                  int&nbsp;y,
-                 int&nbsp;height,
-                 int&nbsp;width)</code>&nbsp;</td>
+                 int&nbsp;_height,
+                 int&nbsp;_width)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -264,10 +264,10 @@ implements <a href="../game/Movable.html" title="interface in game">Movable</a>,
 <ul class="blockList">
 <li class="blockList">
 <h4>Ball</h4>
-<pre>public&nbsp;Ball(int&nbsp;height,
-    int&nbsp;width)</pre>
+<pre>public&nbsp;Ball(int&nbsp;_height,
+    int&nbsp;_width)</pre>
 <div class="block">The Ball will be positioned in left top corner of the window</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>height</code> - height of Ball. Used for collision detection</dd><dd><code>width</code> - width of Ball. Used for collision detection</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>_height</code> - _height of Ball. Used for collision detection</dd><dd><code>_width</code> - _width of Ball. Used for collision detection</dd></dl>
 </li>
 </ul>
 <a name="Ball(int, int, int, int)">
@@ -278,9 +278,9 @@ implements <a href="../game/Movable.html" title="interface in game">Movable</a>,
 <h4>Ball</h4>
 <pre>public&nbsp;Ball(int&nbsp;coordinateX,
     int&nbsp;coordinateY,
-    int&nbsp;height,
-    int&nbsp;width)</pre>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>coordinateX</code> - coordinate X of Ball when created</dd><dd><code>coordinateY</code> - coordinate X of Ball when created</dd><dd><code>height</code> - height of Ball. Used for collision detection</dd><dd><code>width</code> - width of Ball. Used for collision detection</dd></dl>
+    int&nbsp;_height,
+    int&nbsp;_width)</pre>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>coordinateX</code> - coordinate X of Ball when created</dd><dd><code>coordinateY</code> - coordinate X of Ball when created</dd><dd><code>_height</code> - _height of Ball. Used for collision detection</dd><dd><code>_width</code> - _width of Ball. Used for collision detection</dd></dl>
 </li>
 </ul>
 </li>
@@ -352,8 +352,8 @@ implements <a href="../game/Movable.html" title="interface in game">Movable</a>,
 <h4>SetMovementBounds</h4>
 <pre>public&nbsp;void&nbsp;SetMovementBounds(int&nbsp;x,
                      int&nbsp;y,
-                     int&nbsp;height,
-                     int&nbsp;width)</pre>
+                     int&nbsp;_height,
+                     int&nbsp;_width)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../game/Movable.html#SetMovementBounds(int, int, int, int)">SetMovementBounds</a></code>&nbsp;in interface&nbsp;<code><a href="../game/Movable.html" title="interface in game">Movable</a></code></dd>

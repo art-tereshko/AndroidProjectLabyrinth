@@ -1,7 +1,9 @@
 package game.shape;
 
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 import game.GameObject;
 
@@ -22,14 +24,14 @@ public abstract class ShapeCircle extends GameObject {
     private static double EPSILON = 1.0E-6;
 
     public ShapeCircle(int radius, int x, int y){
-        super(x , y , radius*2, radius*2 );//x, y, height, width
+        super(x , y , radius*2, radius*2 );//x, y, _height, _width
 
         if (radius<0)
             _radius =0;
         else
             _radius = radius;
 
-        this.drawRectangle = new Rect(x, y , x + radius*2, y+ radius*2);//left, top, right, bottom
+        this._drawRectangle = new Rect(x, y , x + radius*2, y+ radius*2);//left, top, right, bottom
     }
 
     public int get_radius() {
@@ -40,7 +42,7 @@ public abstract class ShapeCircle extends GameObject {
     public boolean isIntersect(ShapeCircle shapeCircle) {
 
         //If the distance between the centers of the circles is less than the sum of their radii
-        if( distance( shapeCircle.getDrawRectangle().centerX(),shapeCircle.getDrawRectangle().centerY() , this.getDrawRectangle().centerX(), this.getDrawRectangle().centerY()) < shapeCircle.get_radius() + this.get_radius() )
+        if( distance( shapeCircle.get_drawRectangle().centerX(),shapeCircle.get_drawRectangle().centerY() , this.get_drawRectangle().centerX(), this.get_drawRectangle().centerY()) < shapeCircle.get_radius() + this.get_radius() )
         {
 
             //The circles have collided
@@ -51,31 +53,31 @@ public abstract class ShapeCircle extends GameObject {
         return false;
 
 
-        /*int dx = this.posX - shapeCircle.getPosX();
-        int dy = this.posY - shapeCircle.getPosY();
+        /*int dx = this._posX - shapeCircle.get_posX();
+        int dy = this._posY - shapeCircle.get_posY();
         int dist = this._radius + shapeCircle.get_radius();
 
-        //Log.i("DEBUG", "dx="+dx+" dy="+dy+" dist="+dist+"   x1="+posX+" y1="+posY+" radius1="+_radius+"       x2="+shapeCircle.posX+" y2="+shapeCircle.posY+" radius2="+shapeCircle.get_radius());
+        //Log.i("DEBUG", "dx="+dx+" dy="+dy+" dist="+dist+"   x1="+_posX+" y1="+_posY+" radius1="+_radius+"       x2="+shapeCircle._posX+" y2="+shapeCircle._posY+" radius2="+shapeCircle.get_radius());
         return (dx * dx + dy * dy < dist * dist);*/
 
     }
 
     @Override
     public boolean isIntersect(ShapeRectangle shapeRectangle) {
-        //this.drawRectangle.intersects(shapeRectangle.getDrawRectangle().left, shapeRectangle.getDrawRectangle().top, shapeRectangle.getDrawRectangle().right, shapeRectangle.getDrawRectangle().bottom);
+        //this._drawRectangle.intersects(shapeRectangle.get_drawRectangle().left, shapeRectangle.get_drawRectangle().top, shapeRectangle.get_drawRectangle().right, shapeRectangle.get_drawRectangle().bottom);
         //distance between rect(of the ball) and circle(of the circularwall)
         Point circleDistance= new Point();
-        circleDistance.x = Math.abs(this.posX - shapeRectangle.getDrawRectangle().left);
-        circleDistance.y = Math.abs(this.posY - shapeRectangle.getDrawRectangle().top);
+        circleDistance.x = Math.abs(this._posX - shapeRectangle.get_drawRectangle().left);
+        circleDistance.y = Math.abs(this._posY - shapeRectangle.get_drawRectangle().top);
 
         //
-        if (circleDistance.x > (shapeRectangle.getWidth()/2 + this._radius)) { return false; }
-        if (circleDistance.y > (shapeRectangle.getHeight()/2 + this._radius)) { return false; }
+        if (circleDistance.x > (shapeRectangle.get_width()/2 + this._radius)) { return false; }
+        if (circleDistance.y > (shapeRectangle.get_height()/2 + this._radius)) { return false; }
 
-        if (circleDistance.x <= (shapeRectangle.getHeight()/2)) { return true; }
-        if (circleDistance.y <= (shapeRectangle.getWidth()/2)) { return true; }
+        if (circleDistance.x <= (shapeRectangle.get_height()/2)) { return true; }
+        if (circleDistance.y <= (shapeRectangle.get_width()/2)) { return true; }
         //using the Pythagorean theorem to know if is in the circle or not
-        int cornerDistance_sq = (circleDistance.x - shapeRectangle.getWidth()/ 2) ^ 2 + (circleDistance.y - shapeRectangle.getHeight()/ 2) ^ 2;
+        int cornerDistance_sq = (circleDistance.x - shapeRectangle.get_width()/ 2) ^ 2 + (circleDistance.y - shapeRectangle.get_height()/ 2) ^ 2;
 
         return (cornerDistance_sq <= (this._radius^2));
     }
@@ -84,5 +86,12 @@ public abstract class ShapeCircle extends GameObject {
     {
         //Return the distance between the two points
         return Math.sqrt( Math.pow( x2 - x1, 2 ) + Math.pow( y2 - y1, 2 ) );
+    }
+    @Override
+    public void Draw(Canvas canvas) {
+        if (_texture != null)
+            canvas.drawBitmap(_texture, null, get_drawRectangle(), null);
+        else
+            canvas.drawOval(new RectF(get_drawRectangle()), _p);
     }
 }

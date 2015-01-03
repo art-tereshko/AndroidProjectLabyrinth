@@ -14,12 +14,15 @@ public class ShapeRectangle extends GameObject {
 
     @Override
     public void Draw(Canvas canvas) {
-        canvas.drawRect(getDrawRectangle(), p);
+        if (_texture != null)
+            canvas.drawBitmap(_texture, null, get_drawRectangle(), null);
+        else
+            canvas.drawRect(get_drawRectangle(), _p);
     }
 
     @Override
     public boolean isIntersect(ShapeRectangle shapeRectangle) {
-        return this.drawRectangle.intersects(shapeRectangle.getDrawRectangle().left, shapeRectangle.getDrawRectangle().top, shapeRectangle.getDrawRectangle().right, shapeRectangle.getDrawRectangle().bottom);
+        return this._drawRectangle.intersects(shapeRectangle.get_drawRectangle().left, shapeRectangle.get_drawRectangle().top, shapeRectangle.get_drawRectangle().right, shapeRectangle.get_drawRectangle().bottom);
     }
 
     @Override

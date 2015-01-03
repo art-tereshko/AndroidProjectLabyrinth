@@ -7,10 +7,10 @@ import android.graphics.Rect;
 
 public abstract class Drawable {
 
-     protected Bitmap texture;
+     protected Bitmap _texture;
 
-    abstract public Rect getDrawRectangle();
-    abstract public void setTexture(Bitmap b);
+    abstract public Rect get_drawRectangle();
+    abstract public void set_texture(Bitmap b);
     abstract public void Draw(Canvas canvas);
 
 

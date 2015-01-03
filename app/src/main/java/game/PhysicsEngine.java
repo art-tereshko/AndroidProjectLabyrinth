@@ -10,18 +10,19 @@ import android.view.Surface;
 
 import com.artem_tereshko.androidproject.GameListener;
 
+import java.util.List;
+
 import game.object.circle.Aim;
 import game.object.circle.Ball;
+import game.object.circle.Bullet;
 import game.object.circle.CircularWall;
 import game.object.circle.Hole;
 import game.object.rectangle.Wall;
 
-/**
- * Created by artem_000 on 11/11/2014.
- */
-public class PhysicsEngine {
 
-    Ball ball =null;
+public class PhysicsEngine {
+    Ball ball = null;
+    //List<Ball> autresBall = null;
     Level lvl;
 
     GameListener gameListener;
@@ -46,7 +47,22 @@ public class PhysicsEngine {
     {
         this.ball = ball;
     }
+/*
+    public List<Ball> getAutresBall() {
+        return autresBall;
+    }
 
+    public void setAutresBall(List<Ball> autresBall) {
+        this.autresBall = autresBall;
+    }
+
+    public void addAutresBall(List<Ball> autresBall) {
+        this.autresBall.addAll(autresBall);
+    }
+
+    public void addAutresBall(GameObject autresBall) {
+        this.autresBall.add((Ball)autresBall);
+    }*/
 
     private void Update(SensorEvent event){
 
@@ -71,12 +87,22 @@ public class PhysicsEngine {
                 y = -event.values[0];
                 break;
         }
-
-
-        ball.setAcceleration(x,y);
+        ball.setAcceleration(x, y);
+/*
+        if(autresBall != null)
+            for (int i = 0; i < autresBall.size(); i++) {
+                autresBall.get(i).setAcceleration(x, y);
+            }
+*/
         //detection des collisions
         CollisionCheck();
         ball.Move();
+/*
+        if(autresBall != null)
+            for (int i = 0; i < autresBall.size(); i++) {
+                autresBall.get(i).Move();
+            }
+*/
     }
 
     private void CollisionCheck(){
@@ -88,16 +114,16 @@ public class PhysicsEngine {
         float speedY =  ball.getSpeedY();
         float speedX = ball.getSpeedX();
         //position où je veux aller
-        float nextX = ball.getPosX() + speedX;
-        float nextY = ball.getPosY() + speedY;
+        float nextX = ball.get_posX() + speedX;
+        float nextY = ball.get_posY() + speedY;
         float repulsion = ball.getRepulsion();
         //bord gauche
             if (nextX < bounds.left) {
                 nextX = bounds.left;
                 speedX = -speedX / repulsion;
 
-            } else if (nextX > bounds.right - ball.getDrawRectangle().width()) {
-                nextX = bounds.right - ball.getDrawRectangle().width();
+            } else if (nextX > bounds.right - ball.get_drawRectangle().width()) {
+                nextX = bounds.right - ball.get_drawRectangle().width();
                 speedX = -speedX / repulsion;
             }
 
@@ -107,28 +133,28 @@ public class PhysicsEngine {
                 nextY= bounds.top;
                 speedY = -speedY / repulsion;
             }
-            else if (nextY> bounds.bottom - ball.getDrawRectangle().height()){
-                nextY = bounds.bottom - ball.getDrawRectangle().height();
+            else if (nextY> bounds.bottom - ball.get_drawRectangle().height()){
+                nextY = bounds.bottom - ball.get_drawRectangle().height();
                 speedY = -speedY / repulsion;
             }
 
 
 
         //gameobject detection
-        Ball nextBall  = new Ball(ball.get_radius(), ball.getPosX() + (int)speedX, ball.getPosY() + (int) speedY);
+        Ball nextBall  = new Ball(ball.get_radius(), ball.get_posX() + (int)speedX, ball.get_posY() + (int) speedY);
         for (GameObject gameObject : getLevel().get_gameObjectArrayList()) {
             if ( gameObject.isIntersect(nextBall)) {
                 //walls detection
                 if (gameObject.getClass().equals(Wall.class)) {
-                    Rect rectNextBall = nextBall.getDrawRectangle();
-                    Rect rectGameObject = gameObject.getDrawRectangle();
+                    Rect rectNextBall = nextBall.get_drawRectangle();
+                    Rect rectGameObject = gameObject.get_drawRectangle();
                     //collision
                     if (rectNextBall.left < rectGameObject.right && rectNextBall.right > rectGameObject.right) {
                         nextX = rectGameObject.right;
                         speedX = -speedX / repulsion;
 
                     } else if (rectNextBall.right > rectGameObject.left && rectNextBall.left < rectGameObject.left) {
-                        nextX = rectGameObject.left - ball.getDrawRectangle().width();
+                        nextX = rectGameObject.left - ball.get_drawRectangle().width();
                         speedX = -speedX / repulsion;
                     }
 
@@ -136,7 +162,7 @@ public class PhysicsEngine {
                         nextY = rectGameObject.bottom;
                         speedY = -speedY / repulsion;
                     } else if (rectNextBall.bottom > rectGameObject.top && rectNextBall.top < rectGameObject.top) {
-                        nextY = rectGameObject.top - ball.getDrawRectangle().height();
+                        nextY = rectGameObject.top - ball.get_drawRectangle().height();
                         speedY = -speedY / repulsion;
                     }
 
@@ -149,8 +175,8 @@ public class PhysicsEngine {
                     speedX = -speedX / repulsion;
                     speedY = -speedY / repulsion;
 
-                    nextX = ball.getPosX();
-                    nextY = ball.getPosY();
+                    nextX = ball.get_posX();
+                    nextY = ball.get_posY();
                 }
 
 
@@ -172,13 +198,23 @@ public class PhysicsEngine {
                         Log.i("DEBUG", "onGameWin, gameListener is null");
                 }
 
+                //Bullet
+                if (gameObject.getClass().equals(Bullet.class)) {
+                    Log.i("DEBUG", "intersection of Bullet with ball");
+                    speedX = -speedX / repulsion;
+                    speedY = -speedY / repulsion;
+
+                    nextX = ball.get_posX();
+                    nextY = ball.get_posY();
+                }
+
             }
         }
         ball.setSpeedY(speedY);
         ball.setSpeedX(speedX);
 
-        ball.setPosY((int) nextY);
-        ball.setPosX((int)nextX);
+        ball.set_posY((int) nextY);
+        ball.set_posX((int) nextX);
     }
 
 

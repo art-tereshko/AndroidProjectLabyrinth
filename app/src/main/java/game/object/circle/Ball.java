@@ -1,6 +1,5 @@
 package game.object.circle;
 
-import android.graphics.Canvas;
 import android.graphics.Rect;
 
 import game.GameObjectInteractive;
@@ -32,22 +31,14 @@ public class Ball extends GameObjectInteractive implements Movable {
 
     @Override
     public void Move() {
-        // setPositionX(posX + (int)speedX);
-        // setPositionY(posY + (int)speedY);
-        this.drawRectangle = new Rect(posX , posY, posX + get_radius()*2, posY+ get_radius()*2);//left, tope, right, bottom
-    }
-
-
-    @Override
-    public void Draw(Canvas canvas) {
-        if ( texture!=null){
-            canvas.drawBitmap ( texture, null, getDrawRectangle(), null );
-        }
+        // setPositionX(_posX + (int)speedX);
+        // setPositionY(_posY + (int)speedY);
+        this._drawRectangle = new Rect(_posX, _posY, _posX + get_radius()*2, _posY + get_radius()*2);//left, tope, right, bottom
     }
     /*
     @Override
     public boolean isIntersect(Rect r) {
-       return  drawRectangle.intersects(r.left, r.top,r.right, r.bottom);
+       return  _drawRectangle.intersects(r.left, r.top,r.right, r.bottom);
     }*/
 
     //intersection with objects no-flat (CircularWall for example)
@@ -55,17 +46,17 @@ public class Ball extends GameObjectInteractive implements Movable {
     {
         //distance between rect(of the ball) and circle(of the circularwall)
         Point circleDistance= new Point();
-        circleDistance.x = Math.abs(circle.posX - rect.left);
-        circleDistance.y = Math.abs(circle.posY - rect.top);
+        circleDistance.x = Math.abs(circle._posX - rect.left);
+        circleDistance.y = Math.abs(circle._posY - rect.top);
 
         //
-        if (circleDistance.x > (rect.width()/2 + circle.getRadius())) { return false; }
-        if (circleDistance.y > (rect.height()/2 + circle.getRadius())) { return false; }
+        if (circleDistance.x > (rect._width()/2 + circle.getRadius())) { return false; }
+        if (circleDistance.y > (rect._height()/2 + circle.getRadius())) { return false; }
 
-        if (circleDistance.x <= (rect.width()/2)) { return true; }
-        if (circleDistance.y <= (rect.width()/2)) { return true; }
+        if (circleDistance.x <= (rect._width()/2)) { return true; }
+        if (circleDistance.y <= (rect._width()/2)) { return true; }
         //using the Pythagorean theorem to know if is in the circle or not
-        int cornerDistance_sq = (circleDistance.x - rect.width() / 2) ^ 2 + (circleDistance.y - rect.height() / 2) ^ 2;
+        int cornerDistance_sq = (circleDistance.x - rect._width() / 2) ^ 2 + (circleDistance.y - rect._height() / 2) ^ 2;
 
         return (cornerDistance_sq <= (circle.getRadius()^2));
     }*/

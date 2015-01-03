@@ -16,11 +16,10 @@ import android.view.SurfaceView;
 import game.GameObject;
 import game.Level;
 import game.PhysicsEngine;
-import game.object.circle.Aim;
 import game.object.circle.Ball;
-import game.object.circle.CircularWall;
+import game.object.circle.Bullet;
 import game.object.circle.Hole;
-import game.object.rectangle.Wall;
+import game.object.rectangle.Cannon;
 
 
 /**
@@ -79,7 +78,7 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         balltexture = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         //instancie objet bille
         Ball b = new Ball( balltexture.getWidth()/2, 0, 0);
-        b.setTexture(balltexture);
+        b.set_texture(balltexture);
         engine.setBall(b);
 
         if (levelIndex == 1 )
@@ -90,15 +89,22 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
             engine.setLevel(Level.Level3(getHeight(), getWidth()));
 
         Bitmap holeTexture = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
+        Bitmap cannonTexture = BitmapFactory.decodeResource(getResources(), R.drawable.canon);
         for (GameObject gameObject : engine.getLevel().get_gameObjectArrayList()){
+            //Hole
             if (gameObject.getClass().equals(Hole.class)) {
-                gameObject.setTexture(holeTexture);
+                gameObject.set_texture(holeTexture);
+            }
+            //Cannon
+            if (gameObject.getClass().equals(Cannon.class)) {
+                gameObject.set_texture(cannonTexture);
+            }
+            //Bullet
+            if (gameObject.getClass().equals(Bullet.class)) {
+                gameObject.set_texture(balltexture);
+/*                engine.addAutresBall(gameObject);*/
             }
         }
-/*
-        for (Hole hole: engine.getLevel().getHoles()){
-            hole.setTexture(holeTexture);
-}*/
         //start accelerometer
         engine.Start();
         //---------------------- a tester sans
