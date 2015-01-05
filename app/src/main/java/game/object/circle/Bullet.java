@@ -12,7 +12,7 @@ public class Bullet extends Ball implements Movable {
 
     public Bullet(int radius, int x, int y, int rotate) {
         super(radius, x, y);
-        _active = false;
+        _active = true;
         _rotate = rotate;
     }
 
@@ -33,7 +33,6 @@ public class Bullet extends Ball implements Movable {
     }
     @Override
     public void Move() {
-
         this._drawRectangle = new Rect(_posX, _posY, _posX + get_radius()*2, _posY + get_radius()*2);//left, tope, right, bottom
     }
 }

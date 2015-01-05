@@ -226,6 +226,7 @@ public class PhysicsEngine {
 
                     nextX = ball.get_posX();
                     nextY = ball.get_posY();
+                    ((Bullet)gameObject).set_active(false);//destruction du Bullet
                 }
 
             }

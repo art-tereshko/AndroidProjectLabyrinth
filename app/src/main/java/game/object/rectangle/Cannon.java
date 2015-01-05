@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.GameObject;
 import game.Level;
 import game.object.circle.Bullet;
 import game.shape.ShapeRectangle;
@@ -12,31 +13,21 @@ import game.shape.ShapeRectangle;
 //http://furiouspixels.blogspot.fr/
 public class Cannon extends ShapeRectangle {
     private int _orientation;
-    private int _sizeBullet;
-    private int _munition;
-    private ArrayList<Bullet> _listBullet=  new ArrayList<Bullet>() ;
+    private Bullet _bullet;
+    private ArrayList<GameObject> _listGameObject;
 
 
-    public Cannon(int coordinateX, int coordinateY, int height, int width, int orientation, int munition, Level l) {
+    public Cannon(int coordinateX, int coordinateY, int height, int width, int orientation, ArrayList<GameObject> gameObjectArrayList) {
         super(coordinateX, coordinateY, height, width);
         _orientation = orientation;
-        _munition = munition;
-        _listBullet = new ArrayList<Bullet>();
-      // l.get_gameObjectArrayList().clear();
-
-        int startBulletX = _posX + _width/2;
-        int startBulletY = _posY;
-        for(int i = 0; i < _munition;i++){
-            _listBullet.add(new Bullet(height/4, startBulletX, startBulletY, _orientation));
-        }
+        _listGameObject = gameObjectArrayList;
+        ShootBullet(_listGameObject);
         //orienté vers le haut
         //if(orientation >= 0 && orientation <= 180 || orientation >= 270 && orientation <= 360){
 
         //}
     }
-    public List<Bullet> get_listBullet() {
-        return _listBullet;
-    }
+
 
     @Override
     public void Draw(Canvas canvas) {
@@ -48,25 +39,24 @@ public class Cannon extends ShapeRectangle {
         else
             canvas.drawRect(get_drawRectangle(), _p);
 
-        for(int i = 0; i < _munition;i++){
-            _listBullet.get(i).Draw(canvas);
-        }
+        if(_bullet.is_active())
+            _bullet.Draw(canvas);
+        else
+            ShootBullet(_listGameObject);
 
         canvas.restore();
     }
 
-    public void Shoot(){
-        //On lance la prochaine Bullet non active
-        int i = 0;
-        while(i< _listBullet.size()){
-            if(_listBullet.get(i).is_active())
-                i++;
-            else {
-                _listBullet.get(i).Move();
-                break;
-            }
-        }
+    public void ShootBullet(ArrayList<GameObject> listGameObject){
 
+        if(_bullet == null || !_bullet.is_active()) {//On lance une nouvelle Bullet
+
+            listGameObject.remove(_bullet);
+            int startBulletX = _posX + _width/2;
+            int startBulletY = _posY;
+            _bullet = new Bullet(_height/6, startBulletX, startBulletY, _orientation);
+            listGameObject.add(_bullet);
+        }
     }
 
 }

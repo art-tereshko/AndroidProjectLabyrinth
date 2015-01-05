@@ -111,8 +111,7 @@ public class Level {
 
 
         lvl.add(new Wall(width / 2 - (wallWidth / 2), height / 100 * 30, height, wallWidth));
-        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 280, 10, lvl));
-       // lvl.add((new Bullet(cannonHeight/4, width/3, height/2, 280)));
+        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 280, lvl.get_gameObjectArrayList()));
         lvl.add(new Aim(aimSize, width - aimSize * 2, aimSize));
 
         return lvl;
