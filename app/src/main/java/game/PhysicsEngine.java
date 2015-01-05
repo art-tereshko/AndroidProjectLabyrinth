@@ -10,7 +10,7 @@ import android.view.Surface;
 
 import com.artem_tereshko.androidproject.GameListener;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import game.object.circle.Aim;
 import game.object.circle.Ball;
@@ -87,7 +87,26 @@ public class PhysicsEngine {
                 y = -event.values[0];
                 break;
         }
+
+        ArrayList<GameObject> gameObjectArrayList = getLevel().get_gameObjectArrayList();
+        for (GameObject gameObject : getLevel().get_gameObjectArrayList()) {
+            if (gameObject.getClass().equals(Bullet.class)){
+                gameObject.set_posX(gameObject.get_posX() + (int)x);
+                gameObject.set_posY(gameObject.get_posY() + (int)y);
+                ((Bullet)gameObject).Move();
+            }
+        }
+        /*ball.setSpeedY(speedY);
+        ball.setSpeedX(speedX);
+
+        ball.set_posY((int) nextY);
+        ball.set_posX((int) nextX);
+        ball.Move();
+*/
+
         ball.setAcceleration(x, y);
+
+
 /*
         if(autresBall != null)
             for (int i = 0; i < autresBall.size(); i++) {
@@ -96,6 +115,7 @@ public class PhysicsEngine {
 */
         //detection des collisions
         CollisionCheck();
+
         ball.Move();
 /*
         if(autresBall != null)

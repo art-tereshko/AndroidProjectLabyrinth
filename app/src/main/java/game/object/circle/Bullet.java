@@ -1,7 +1,11 @@
 package game.object.circle;
 
 
-public class Bullet extends Ball {
+import android.graphics.Rect;
+
+import game.Movable;
+
+public class Bullet extends Ball implements Movable {
 
     private boolean _active;
     private int _rotate;
@@ -26,5 +30,10 @@ public class Bullet extends Ball {
 
     public void set_active(boolean _active) {
         this._active = _active;
+    }
+    @Override
+    public void Move() {
+
+        this._drawRectangle = new Rect(_posX, _posY, _posX + get_radius()*2, _posY + get_radius()*2);//left, tope, right, bottom
     }
 }

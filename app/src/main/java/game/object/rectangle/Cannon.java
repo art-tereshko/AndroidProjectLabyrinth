@@ -1,18 +1,11 @@
 package game.object.rectangle;
 
 import android.graphics.Canvas;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.NonNull;
-
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Timer;
 
+import game.Level;
 import game.object.circle.Bullet;
 import game.shape.ShapeRectangle;
 
@@ -24,16 +17,17 @@ public class Cannon extends ShapeRectangle {
     private ArrayList<Bullet> _listBullet=  new ArrayList<Bullet>() ;
 
 
-    public Cannon(int coordinateX, int coordinateY, int height, int width, int orientation, int munition) {
+    public Cannon(int coordinateX, int coordinateY, int height, int width, int orientation, int munition, Level l) {
         super(coordinateX, coordinateY, height, width);
         _orientation = orientation;
         _munition = munition;
         _listBullet = new ArrayList<Bullet>();
+      // l.get_gameObjectArrayList().clear();
 
         int startBulletX = _posX + _width/2;
         int startBulletY = _posY;
         for(int i = 0; i < _munition;i++){
-            _listBullet.add(new Bullet(height/2, startBulletX, startBulletY, _orientation));
+            _listBullet.add(new Bullet(height/4, startBulletX, startBulletY, _orientation));
         }
         //orienté vers le haut
         //if(orientation >= 0 && orientation <= 180 || orientation >= 270 && orientation <= 360){

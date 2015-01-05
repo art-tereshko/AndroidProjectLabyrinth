@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 import game.object.circle.Aim;
-import game.object.circle.Bullet;
 import game.object.circle.CircularWall;
 import game.object.circle.Hole;
 import game.object.rectangle.Cannon;
@@ -112,8 +111,8 @@ public class Level {
 
 
         lvl.add(new Wall(width / 2 - (wallWidth / 2), height / 100 * 30, height, wallWidth));
-        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 280, 10));
-        lvl.add((new Bullet(cannonHeight/4, width/3, height/2, 280)));
+        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 280, 10, lvl));
+       // lvl.add((new Bullet(cannonHeight/4, width/3, height/2, 280)));
         lvl.add(new Aim(aimSize, width - aimSize * 2, aimSize));
 
         return lvl;

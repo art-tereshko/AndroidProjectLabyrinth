@@ -92,6 +92,6 @@ public abstract class ShapeCircle extends GameObject {
         if (_texture != null)
             canvas.drawBitmap(_texture, null, get_drawRectangle(), null);
         else
-            canvas.drawOval(new RectF(get_drawRectangle()), _p);
+           canvas.drawOval(new RectF(get_drawRectangle()), _p);
     }
 }
