@@ -3,6 +3,7 @@ package game.object.rectangle;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import game.GameObject;
@@ -21,7 +22,7 @@ public class Cannon extends ShapeRectangle {
         super(coordinateX, coordinateY, height, width);
         _orientation = orientation;
         _listGameObject = gameObjectArrayList;
-        ShootBullet(_listGameObject);
+        ShootBullet();
         //orienté vers le haut
         //if(orientation >= 0 && orientation <= 180 || orientation >= 270 && orientation <= 360){
 
@@ -42,20 +43,30 @@ public class Cannon extends ShapeRectangle {
         if(_bullet.is_active())
             _bullet.Draw(canvas);
         else
-            ShootBullet(_listGameObject);
+            ShootBullet();
 
         canvas.restore();
     }
 
-    public void ShootBullet(ArrayList<GameObject> listGameObject){
+    public void ShootBullet(){
 
         if(_bullet == null || !_bullet.is_active()) {//On lance une nouvelle Bullet
 
-            listGameObject.remove(_bullet);
-            int startBulletX = _posX + _width/2;
-            int startBulletY = _posY;
-            _bullet = new Bullet(_height/6, startBulletX, startBulletY, _orientation);
-            listGameObject.add(_bullet);
+
+            for (int i = 0; i<_listGameObject.size(); i++) {
+                GameObject obj = _listGameObject.get(i);
+
+                if (obj.equals(_bullet) ){
+                    _listGameObject.remove(obj);
+                    i--;
+                    int startBulletX = _posX + _width/2;
+                    int startBulletY = _posY;
+                    _bullet = new Bullet(_height/6, startBulletX, startBulletY, _orientation);
+                    _listGameObject.add(_bullet);
+                }
+
+            }
+
         }
     }
 
