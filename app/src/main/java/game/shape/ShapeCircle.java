@@ -20,7 +20,7 @@ public abstract class ShapeCircle extends GameObject {
 
 
 
-    private int _radius;
+    protected int _radius;
     private static double EPSILON = 1.0E-6;
 
     public ShapeCircle(int radius, int x, int y){

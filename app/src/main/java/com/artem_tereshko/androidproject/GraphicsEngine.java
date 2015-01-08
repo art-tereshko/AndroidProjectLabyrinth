@@ -102,7 +102,6 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
             //Bullet
             if (gameObject.getClass().equals(Bullet.class)) {
                 gameObject.set_texture(balltexture);
-/*                engine.addAutresBall(gameObject);*/
             }
         }
         //start accelerometer

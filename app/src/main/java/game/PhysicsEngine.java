@@ -91,9 +91,17 @@ public class PhysicsEngine {
         ArrayList<GameObject> gameObjectArrayList = getLevel().get_gameObjectArrayList();
         for (GameObject gameObject : getLevel().get_gameObjectArrayList()) {
             if (gameObject.getClass().equals(Bullet.class)){
-                gameObject.set_posX(gameObject.get_posX() + (int)x);
-                gameObject.set_posY(gameObject.get_posY() + (int)y);
-                ((Bullet)gameObject).Move();
+                //calcul de la direction de la Bullet
+                //x = (gameObject.get_posX() * (float) Math.cos(Math.toRadians( ((Bullet)gameObject).get_angle() - 90)));
+                //y = (gameObject.get_posX() * (float) Math.sin(Math.toRadians(((Bullet)gameObject).get_angle() - 90)));
+
+                //int dirX = ball.get_posX() - gameObject.get_posX();
+                //int dirY = ball.get_posY() - gameObject.get_posY();
+
+                //gameObject.set_posY(gameObject.get_posY() + 1);
+                //gameObject.set_posX(gameObject.get_posX() - 1);
+                ((Bullet)gameObject).nextPosition();
+                ((Bullet)gameObject).refreshDrawRectangle();
             }
         }
         /*ball.setSpeedY(speedY);
@@ -101,7 +109,7 @@ public class PhysicsEngine {
 
         ball.set_posY((int) nextY);
         ball.set_posX((int) nextX);
-        ball.Move();
+        ball.refreshDrawRectangle();
 */
 
         ball.setAcceleration(x, y);
@@ -116,11 +124,11 @@ public class PhysicsEngine {
         //detection des collisions
         CollisionCheck();
 
-        ball.Move();
+        ball.refreshDrawRectangle();
 /*
         if(autresBall != null)
             for (int i = 0; i < autresBall.size(); i++) {
-                autresBall.get(i).Move();
+                autresBall.get(i).refreshDrawRectangle();
             }
 */
     }

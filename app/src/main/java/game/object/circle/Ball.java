@@ -30,7 +30,7 @@ public class Ball extends GameObjectInteractive implements Movable {
     }
 
     @Override
-    public void Move() {
+    public void refreshDrawRectangle() {
         // setPositionX(_posX + (int)speedX);
         // setPositionY(_posY + (int)speedY);
         this._drawRectangle = new Rect(_posX, _posY, _posX + get_radius()*2, _posY + get_radius()*2);//left, tope, right, bottom

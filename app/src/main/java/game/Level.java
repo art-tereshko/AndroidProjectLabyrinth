@@ -107,13 +107,12 @@ public class Level {
         int cannonWidth = width / 100 * 10; // 10%
         int cannonHeight =cannonWidth /2;
         int aimSize = height / 100 * 5;
-        int bulletSize = height / 100 * 2;
-
+        int aimX = width - aimSize * 2;
+        int aimY = aimSize;
 
         lvl.add(new Wall(width / 2 - (wallWidth / 2), height / 100 * 30, height, wallWidth));
-        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 280, lvl.get_gameObjectArrayList()));
-        lvl.add(new Aim(aimSize, width - aimSize * 2, aimSize));
-
+        lvl.add(new Aim(aimSize, aimX, aimY));
+        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, aimX, aimY , lvl.get_gameObjectArrayList()));
         return lvl;
     }
 

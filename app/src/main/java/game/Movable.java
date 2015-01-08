@@ -9,6 +9,6 @@ public interface Movable {
     float getSpeedX();
     float getSpeedY();
     void setAcceleration(float x , float y);
-    void Move();
+    void refreshDrawRectangle();
 
 }

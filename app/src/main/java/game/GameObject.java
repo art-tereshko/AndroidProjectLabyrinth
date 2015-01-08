@@ -79,9 +79,4 @@ public abstract class GameObject extends Drawable implements ICollisionable{
     }
 
 
-
-    @Override
-    public void set_texture(Bitmap b) {
-        _texture = b;
-    }
 }
