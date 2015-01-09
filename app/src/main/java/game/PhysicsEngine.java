@@ -17,6 +17,7 @@ import game.object.circle.Ball;
 import game.object.circle.Bullet;
 import game.object.circle.CircularWall;
 import game.object.circle.Hole;
+import game.object.rectangle.Cannon;
 import game.object.rectangle.Wall;
 
 
@@ -100,7 +101,7 @@ public class PhysicsEngine {
 
                 //gameObject.set_posY(gameObject.get_posY() + 1);
                 //gameObject.set_posX(gameObject.get_posX() - 1);
-                ((Bullet)gameObject).nextPosition();
+                ((Bullet)gameObject).nextPosition(lvl.getWorldWidth()/lvl.getWorldHeight());
                 ((Bullet)gameObject).refreshDrawRectangle();
             }
         }
@@ -121,8 +122,10 @@ public class PhysicsEngine {
                 autresBall.get(i).setAcceleration(x, y);
             }
 */
-        //detection des collisions
+        //detection des collisions de la balle
         CollisionCheck();
+        //detection collision de la bullet
+        BulletCollisionCheck();
 
         ball.refreshDrawRectangle();
 /*
@@ -244,6 +247,85 @@ public class PhysicsEngine {
 
         ball.set_posY((int) nextY);
         ball.set_posX((int) nextX);
+    }
+
+
+
+    private void BulletCollisionCheck(){//BIG COPY PASTE
+        Bullet bullet = null;
+        //on récupère notre bullet
+        for (GameObject gameObject : getLevel().get_gameObjectArrayList()) {
+            if (gameObject.getClass().equals(Bullet.class)) {
+                bullet = (Bullet)gameObject;
+                break;
+            }
+        }
+        Rect bounds  = lvl.getMovementBounds();
+        //vitesse de la bullet
+        float speedY =  bullet.getSpeedY();
+        float speedX = bullet.getSpeedX();
+        //position où je veux aller
+        float nextX = bullet.get_posX() + speedX;
+        float nextY = bullet.get_posY() + speedY;
+
+        //bord gauche
+        if (nextX < bounds.left) {
+            bullet.set_active(false);//destruction du Bullet
+
+        } else if (nextX > bounds.right - bullet.get_drawRectangle().width()) {
+            bullet.set_active(false);//destruction du Bullet
+        }
+
+        if (nextY < bounds.top)
+        {
+            bullet.set_active(false);//destruction du Bullet
+        }
+        else if (nextY> bounds.bottom - bullet.get_drawRectangle().height()){
+            bullet.set_active(false);//destruction du Bullet
+        }
+
+        //gameobject detection
+        Bullet nextBullet  = new Bullet(bullet.get_radius(), bullet.get_posX() + (int)speedX, bullet.get_posY() + (int) speedY, bullet.get_angle());
+        for (GameObject gameObject : getLevel().get_gameObjectArrayList()) {
+            if ( gameObject.isIntersect(nextBullet)) {
+                //walls detection
+                if (gameObject.getClass().equals(Wall.class)) {
+                    Rect rectNextBullet = nextBullet.get_drawRectangle();
+                    Rect rectGameObject = gameObject.get_drawRectangle();
+                    //collision
+                    if (rectNextBullet.left < rectGameObject.right && rectNextBullet.right > rectGameObject.right) {
+                        bullet.set_active(false);//destruction du Bullet
+
+                    } else if (rectNextBullet.right > rectGameObject.left && rectNextBullet.left < rectGameObject.left) {
+                        bullet.set_active(false);//destruction du Bullet
+                    }
+
+                    if (rectNextBullet.top < rectGameObject.bottom && rectNextBullet.bottom > rectGameObject.bottom) {
+                        bullet.set_active(false);//destruction du Bullet
+                    } else if (rectNextBullet.bottom > rectGameObject.top && rectNextBullet.top < rectGameObject.top) {
+                        bullet.set_active(false);//destruction du Bullet
+                    }
+
+                    Log.i("debugTest", "collision");
+                }
+
+                //Circular Walls
+                if (gameObject.getClass().equals(CircularWall.class)) {
+                    Log.i("DEBUG", "intersection of CircularWall with bullet");
+                    bullet.set_active(false);//destruction du Bullet
+                }
+
+
+                //Hole
+                if (gameObject.getClass().equals(Hole.class)) {
+                    if (gameListener != null) {
+                        Log.i("DEBUG", "onGameLose");
+                        bullet.set_active(false);//destruction du Bullet
+                    } else
+                        Log.i("DEBUG", "onGameLose, gameListener is null");
+                }
+            }
+        }
     }
 
 

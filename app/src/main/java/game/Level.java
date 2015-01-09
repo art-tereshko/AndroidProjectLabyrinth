@@ -39,7 +39,22 @@ public class Level {
         this.worldWidth = width;
         this._gameObjectArrayList = new ArrayList<GameObject>();
         movementBounds = new Rect(0, 0, width, height);
+    }
 
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+
+    public void setWorldHeight(int worldHeight) {
+        this.worldHeight = worldHeight;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public void setWorldWidth(int worldWidth) {
+        this.worldWidth = worldWidth;
     }
 
     /**
@@ -112,7 +127,7 @@ public class Level {
 
         lvl.add(new Wall(width / 2 - (wallWidth / 2), height / 100 * 30, height, wallWidth));
         lvl.add(new Aim(aimSize, aimX, aimY));
-        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, aimX, aimY , lvl.get_gameObjectArrayList()));
+        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 0, 0 , lvl.get_gameObjectArrayList()));
         return lvl;
     }
 

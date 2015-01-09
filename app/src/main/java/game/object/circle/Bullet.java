@@ -53,10 +53,10 @@ public class Bullet extends GameObjectInteractive implements Movable {
             speedY = -maxSpeed;
     }
 
-    public void nextPosition() {//PointF center, float radius, float angle
+    public void nextPosition(float rapport) {//PointF center, float radius, float angle
 
-        _posX += speedX * Math.cos(Math.toRadians(_angle));
-        _posY -= speedY * Math.sin(Math.toRadians(_angle));
+        _posX -= speedX * Math.cos(Math.toRadians(_angle));
+        _posY += speedY * Math.sin(Math.toRadians(_angle) * rapport);
         //        = new PointF((float) (center.x + radius * Math.cos(Math.toRadians(angle))),
           //      (float) (center.y + radius* Math.sin(Math.toRadians(angle))));
     }
