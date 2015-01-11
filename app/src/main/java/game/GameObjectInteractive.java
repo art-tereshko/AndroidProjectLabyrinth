@@ -1,7 +1,5 @@
 package game;
 
-import android.graphics.Canvas;
-
 import game.shape.ShapeCircle;
 
 public abstract class GameObjectInteractive extends ShapeCircle{
@@ -10,7 +8,7 @@ public abstract class GameObjectInteractive extends ShapeCircle{
     protected float speedY = 10;
 
     protected float repulsion = 1.2f;
-    protected int maxSpeed = 15;
+    protected int maxSpeed = 8;
 
     public GameObjectInteractive(int radius, int x, int y) {
         super(radius, x, y);

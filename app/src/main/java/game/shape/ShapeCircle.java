@@ -1,7 +1,6 @@
 package game.shape;
 
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -64,9 +63,12 @@ public abstract class ShapeCircle extends GameObject {
 
     @Override
     public boolean isIntersect(ShapeRectangle shapeRectangle) {
+
+         return shapeRectangle.get_drawRectangle().intersects(this.get_posX(),this.get_posY(),this.get_posX()+ this.get_radius()*2,this.get_posY()+ this.get_radius()*2  );
+
         //this._drawRectangle.intersects(shapeRectangle.get_drawRectangle().left, shapeRectangle.get_drawRectangle().top, shapeRectangle.get_drawRectangle().right, shapeRectangle.get_drawRectangle().bottom);
         //distance between rect(of the ball) and circle(of the circularwall)
-        Point circleDistance= new Point();
+        /*Point circleDistance= new Point();
         circleDistance.x = Math.abs(this._posX - shapeRectangle.get_drawRectangle().left);
         circleDistance.y = Math.abs(this._posY - shapeRectangle.get_drawRectangle().top);
 
@@ -79,7 +81,7 @@ public abstract class ShapeCircle extends GameObject {
         //using the Pythagorean theorem to know if is in the circle or not
         int cornerDistance_sq = (circleDistance.x - shapeRectangle.get_width()/ 2) ^ 2 + (circleDistance.y - shapeRectangle.get_height()/ 2) ^ 2;
 
-        return (cornerDistance_sq <= (this._radius^2));
+        return (cornerDistance_sq <= (this._radius^2));*/
     }
 
     private double distance( int x1, int y1, int x2, int y2 )

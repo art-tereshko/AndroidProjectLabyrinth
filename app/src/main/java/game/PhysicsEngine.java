@@ -17,7 +17,6 @@ import game.object.circle.Ball;
 import game.object.circle.Bullet;
 import game.object.circle.CircularWall;
 import game.object.circle.Hole;
-import game.object.rectangle.Cannon;
 import game.object.rectangle.Wall;
 
 
@@ -125,7 +124,7 @@ public class PhysicsEngine {
         //detection des collisions de la balle
         CollisionCheck();
         //detection collision de la bullet
-        BulletCollisionCheck();
+       // BulletCollisionCheck();
 
         ball.refreshDrawRectangle();
 /*
