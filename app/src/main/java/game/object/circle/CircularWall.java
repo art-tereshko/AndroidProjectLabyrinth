@@ -10,7 +10,7 @@ public class CircularWall extends ShapeCircle {
     public CircularWall(int radius, int x, int y){
         super(radius, x,y);
 
-        _p.setColor(Color.LTGRAY);
+        paint.setColor(Color.LTGRAY);
     }
 
     /*@Override

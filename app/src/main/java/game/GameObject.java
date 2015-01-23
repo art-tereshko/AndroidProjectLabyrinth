@@ -1,87 +1,159 @@
 package game;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import java.util.Vector;
 
-public abstract class GameObject extends Drawable implements ICollisionable{
+import game.shape.ShapeCircle;
+import game.shape.ShapeRectangle;
+import mesmaths.geometrie.base.Vecteur;
 
-    protected int _posX = 0;
-    protected int _posY = 0;
 
+public class GameObject extends AbstractGameObject{
+
+    protected Vecteur _position;   // position de l'objet
     protected int _height;
     protected int _width;
-    
+    protected Bitmap _texture;
+    protected Vecteur _speed = new Vecteur(0.0, 0.0);;
     protected Rect _drawRectangle;
-    protected Paint _p;
+    protected Paint paint;
+    protected Vecteur acceleration;
+    protected double masse;
+    protected float angleorientation;
+    protected int clef;                // identifiant unique de cet objet
 
-    public GameObject(int height, int width){
-        this._posX = this._posY = 0;
+    protected double repulsion = 1.1;
+    protected int maxSpeed = 15;
 
-        this._height = height;
-        this._width = width;
+    private static int prochaineClef = 0;
 
-        this._drawRectangle = new Rect(_posX, _posY, _posX + width, _posY +height );
-        this._p = new Paint();
+    protected GameObject() {
     }
 
     public GameObject(int coordinateX, int coordinateY, int height, int width){
-        this._posX = coordinateX;
-        this._posY = coordinateY;
-
+        this._position = new Vecteur(coordinateX, coordinateY);
         this._height = height;
         this._width = width;
+        this.angleorientation = 0;
+        if (angleorientation < 0) {
+            angleorientation += 360;
+        }
+        if(angleorientation > 360){
+            angleorientation -= 360;
+        }
 
-        this._drawRectangle = new Rect(_posX, _posY, _posX + width, _posY +height );
-        this._p = new Paint();
+        this.paint = new Paint();
+
+        this.clef = GameObject.prochaineClef ++;
     }
 
-    @Override
+
+    public Vecteur get_position() {
+        return _position;
+    }
+
+    public void set_Position(Vecteur position){this._position = position;}
+
+    public Vecteur get_speed() {
+        return _speed;
+    }
+
+    public void setSpeed(Vecteur speed){
+        this._speed= speed;
+    }
+
+    public Paint get_paint() {
+        return paint;
+    }
+
+    public Vecteur getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vecteur acceleration){
+        this.acceleration = acceleration;
+    }
+
+    public double getMasse() {
+        return masse;
+    }
+
+    public int getClef() {
+        return clef;
+    }
+
+    public double getRepulsion() {
+        return repulsion;
+    }
+
+    public void set_repulsion(double repulsion) {
+        this.repulsion = repulsion;
+    }
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public Bitmap get_texture() {
+        return _texture;
+    }
+
+    public void set_texture(Bitmap _texture) {
+        this._texture = _texture;
+    }
+
     public Rect get_drawRectangle() {
         return _drawRectangle;
-    }
-
-    public void set_drawRectangle(Rect _drawRectangle) {
-        this._drawRectangle = _drawRectangle;
-    }
-
-    public int get_posX() {
-        return _posX;
-    }
-
-    public void set_posX(int _posX) {
-        this._posX = _posX;
-    }
-
-    public int get_posY() {
-        return _posY;
-    }
-
-    public void set_posY(int _posY) {
-        this._posY = _posY;
     }
 
     public int get_height() {
         return _height;
     }
 
-    public void set_height(int _height) {
-        this._height = _height;
-    }
-
     public int get_width() {
         return _width;
     }
 
-    public void set_width(int _width) {
-        this._width = _width;
+    public float getAngleorientation() {
+        return angleorientation;
     }
 
-
+    public void setAngleorientation(float angleorientation) {
+        this.angleorientation = angleorientation;
+    }
 
     @Override
-    public void set_texture(Bitmap b) {
-        _texture = b;
+    public void collisionContour(double abscisseCoinHautGauche, double ordonnéeCoinHautGauche, double largeur, double hauteur) {
+        // Volontairement on ne fait rien, cela sera géré par les décorateurs
     }
+
+    @Override
+    public void collisionGameObject(AbstractGameObject gameObject) {
+        // Volontairement on ne fait rien, cela sera géré par les décorateurs
+    }
+
+    @Override
+    public void gestionAccélération(Vector<AbstractGameObject> abstractGameObjectVector) {
+        // Volontairement on ne fait rien, cela sera géré plus tard
+    }
+
+    @Override
+    public void gestionMouvement(Vecteur mouvement){
+        // Volontairement on ne fait rien, cela sera géré plus tard
+    }
+
+    @Override
+    public void Draw(Canvas canvas) {
+        // Volontairement on ne fait rien, cela sera géré plus tard
+    }
+
+    @Override
+    public void move(double coef){
+        // Volontairement on ne fait rien, cela sera géré plus tard
+    }
+
 }

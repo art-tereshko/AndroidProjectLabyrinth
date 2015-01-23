@@ -1,27 +1,19 @@
 package game.object.circle;
 
 
-import android.graphics.Rect;
+import game.object.rectangle.Cannon;
+import game.shape.ShapeCircle;
 
-import game.Movable;
+public class Bullet  extends ShapeCircle{
 
-public class Bullet extends Ball implements Movable {
-
+    private Cannon _cannon;
     private boolean _active;
-    private int _rotate;
 
-    public Bullet(int radius, int x, int y, int rotate) {
+    public Bullet(int radius, int x, int y, float angle, Cannon cannon) {
         super(radius, x, y);
         _active = true;
-        _rotate = rotate;
-    }
-
-    public int get_rotate() {
-        return _rotate;
-    }
-
-    public void set_rotate(int _rotate) {
-        this._rotate = _rotate;
+        angleorientation = angle;
+        _cannon = cannon;
     }
 
     public boolean is_active() {
@@ -31,8 +23,8 @@ public class Bullet extends Ball implements Movable {
     public void set_active(boolean _active) {
         this._active = _active;
     }
-    @Override
-    public void Move() {
-        this._drawRectangle = new Rect(_posX, _posY, _posX + get_radius()*2, _posY + get_radius()*2);//left, tope, right, bottom
+
+    public Cannon get_cannon() {
+        return _cannon;
     }
 }

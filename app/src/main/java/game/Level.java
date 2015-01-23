@@ -2,44 +2,71 @@ package game;
 
 import android.graphics.Rect;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
+import game.atitude.collision.ColBordAmorti;
+import game.atitude.collision.ColObjectAmorti;
+import game.atitude.collision.ColObjectRebondi;
+import game.atitude.mouvement.MvtSensor;
+import game.atitude.mouvement.MvtVitesseRalentieSiPasAcceleration;
 import game.object.circle.Aim;
+import game.object.circle.Ball;
 import game.object.circle.CircularWall;
 import game.object.circle.Hole;
+//import game.object.rectangle.Cannon;
 import game.object.rectangle.Cannon;
 import game.object.rectangle.Wall;
 
 public class Level {
 
-    private ArrayList<GameObject> _gameObjectArrayList;
+    private Vector<AbstractGameObject> _objets;
     private Rect movementBounds;
 
     private int worldHeight;
     private int worldWidth;
 
-    public ArrayList<GameObject> get_gameObjectArrayList() {
-        return _gameObjectArrayList;
-    }
-
-    public void set_gameObjectArrayList(ArrayList<GameObject> _gameObjectArrayList) {
-        this._gameObjectArrayList = _gameObjectArrayList;
-    }
-
-    public Rect getMovementBounds() {
-        return this.movementBounds;
-    }
-
-   /**
+    /**
      * @param height Height of level in pixels
      * @param width  Width of level in pixels
      */
     public Level(int height, int width) {
         this.worldHeight = height;
         this.worldWidth = width;
-        this._gameObjectArrayList = new ArrayList<GameObject>();
+        this._objets = new Vector<AbstractGameObject>();
         movementBounds = new Rect(0, 0, width, height);
+    }
 
+    //objets
+    public Vector<AbstractGameObject> get_objets() {
+        return _objets;
+    }
+
+    public void set_objets(Vector<AbstractGameObject> _objets) {
+        this._objets = _objets;
+    }
+    //MovementsBounds
+    public Rect getMovementBounds() {
+        return this.movementBounds;
+    }
+    //WorldHeight
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+
+    public void setWorldHeight(int worldHeight) {
+        this.worldHeight = worldHeight;
+    }
+    //WorldWidth
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public void setWorldWidth(int worldWidth) {
+        this.worldWidth = worldWidth;
+    }
+
+    public void add(AbstractGameObject abstractGameObject){
+        _objets.add(abstractGameObject);
     }
 
     /**
@@ -48,18 +75,30 @@ public class Level {
      */
     public static Level Level1(int height, int width) {
 
-        int wallWidth = width / 100 * 5; // 5%
-        int holeSize =  height/100*5;
-        int aimSize = height / 100 * 5;
+        int pHeight = height / 100;
+        int pWidth = width / 100;
+
         Level lvl = new Level(height, width);
 
-        lvl.add(new Wall(width / 2 - (wallWidth / 2), height / 100 * 30, height, wallWidth));
-        lvl.add(new Wall(width / 4 - (wallWidth / 2), 0, height / 100 * 70, wallWidth));
-        lvl.add(new Wall(width / 4 * 3 - (wallWidth / 2), 0, height / 100 * 70, wallWidth));
-        lvl.add(new Hole(holeSize, width/3, height/2));
-        lvl.add(new Hole(holeSize, width/3*2, height/2));
-        lvl.add(new Aim(aimSize, width - aimSize * 2, aimSize));
 
+        AbstractGameObject ball = new Ball(pHeight*5, 0, 0, 5.0);
+        ball = new MvtSensor(ball);
+        ball = new MvtVitesseRalentieSiPasAcceleration(ball);
+        ball = new ColBordAmorti(ball);
+        ball = new ColObjectAmorti(ball);
+        lvl.add(ball);
+
+        //x, y, height, width
+
+
+
+        //                  posX                posY                    height              width
+        lvl.add(new Wall(   pWidth*20,          0,                      pHeight*70,         pWidth*5));
+        lvl.add(new Wall(   pWidth*80,          height-pHeight*70,      pHeight*70,         pWidth*5));
+        //                  radius              posX                    posY
+        lvl.add(new Hole(   pHeight*5,          pWidth*30,              pHeight*50));
+        lvl.add(new Hole(   pHeight*5,          pWidth*60,              pHeight*50));
+        lvl.add(new Aim(    pHeight * 5,        width - pHeight * 15,   height - pHeight * 15));
         return lvl;
     }
 
@@ -68,8 +107,19 @@ public class Level {
      * @param width  Width of level in pixels
      */
     public static Level Level2(int height, int width) {
+        int pHeight = height / 100;
+        int pWidth = width / 100;
+
         Level lvl = new Level(height, width);
-        int wallWidth = height / 100 * 5;
+
+        AbstractGameObject ball = new Ball(pHeight*3, 0, 0, 5.0);//radius, x, y, masse
+        ball = new MvtSensor(ball);
+       ball = new MvtVitesseRalentieSiPasAcceleration(ball);
+        ball = new ColBordAmorti(ball);
+        ball = new ColObjectAmorti(ball);
+        lvl.add(ball);
+
+        int wallWidth = pHeight * 5;
         lvl.add(new CircularWall(wallWidth, width / 4, 0 - wallWidth));//1
         lvl.add(new Wall(0, height / 7, wallWidth, width / 2));//2
         lvl.add(new CircularWall(wallWidth / 2, width / 2 - wallWidth, height / 7 + wallWidth / 2 - wallWidth));//3
@@ -94,6 +144,7 @@ public class Level {
         lvl.add(new Hole(wallWidth, width / 16 * 3, height / 14 * 13 - wallWidth / 2));//22
         lvl.add(new Wall(width / 16 * 5, height / 14 * 10, height, wallWidth));//23
         lvl.add(new CircularWall(wallWidth + wallWidth / 2, width / 16 * 5 - wallWidth, height / 14 * 10));//24
+        //
         return lvl;
     }
 
@@ -102,22 +153,28 @@ public class Level {
      * @param width  Width of level in pixels
      */
     public static Level Level3(int height, int width) {
+        int pHeight = height / 100;
+        int pWidth = width / 100;
+
         Level lvl = new Level(height, width);
         int wallWidth = width / 100 * 5; // 5%
         int cannonWidth = width / 100 * 10; // 10%
         int cannonHeight =cannonWidth /2;
         int aimSize = height / 100 * 5;
-        int bulletSize = height / 100 * 2;
+        int aimX = width - aimSize * 2;
+        int aimY = aimSize;
 
+
+        AbstractGameObject ball = new Ball(pHeight*3, 0, 0, 5.0);//radius, x, y, masse
+        ball = new MvtSensor(ball);
+        ball = new MvtVitesseRalentieSiPasAcceleration(ball);
+        ball = new ColBordAmorti(ball);
+        ball = new ColObjectAmorti(ball);
+        lvl.add(ball);
 
         lvl.add(new Wall(width / 2 - (wallWidth / 2), height / 100 * 30, height, wallWidth));
-        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 280, lvl.get_gameObjectArrayList()));
-        lvl.add(new Aim(aimSize, width - aimSize * 2, aimSize));
-
+        lvl.add(new Aim(aimSize, aimX, aimY));
+        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 0, 0 , lvl.get_objets(), width, height));//posX, posY, width, height, cibleX, cibleY
         return lvl;
-    }
-
-    public void add(GameObject gameObject){
-        _gameObjectArrayList.add(gameObject);
     }
 }

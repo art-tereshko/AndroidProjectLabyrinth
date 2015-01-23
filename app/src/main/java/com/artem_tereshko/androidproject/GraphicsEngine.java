@@ -10,28 +10,27 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Shader;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import game.GameObject;
+import game.AbstractGameObject;
 import game.Level;
 import game.PhysicsEngine;
+//import game.object.circle.Bullet;
 import game.object.circle.Ball;
 import game.object.circle.Bullet;
 import game.object.circle.Hole;
 import game.object.rectangle.Cannon;
+//import game.object.rectangle.Cannon;
 
 
-/**
- * Created by artem_tereshko on 10/11/2014.
- */
 public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callback, GameListener {
 
     GameListener gameListener;
     private DrawThread drawThread;
     PhysicsEngine engine;
 
-    Bitmap balltexture;
     Paint gradientPaint;
 
     //region background features
@@ -60,7 +59,7 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         gradientPaint = new Paint();
 
         engine = new PhysicsEngine(manager, displayRotaion);
-        engine.SetGameListener(this);
+        engine.setGameListener(this);
 
     }
     public void SetGameListener(GameListener l){
@@ -74,13 +73,8 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
-        //chargement de la ressource
-        balltexture = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-        //instancie objet bille
-        Ball b = new Ball( balltexture.getWidth()/2, 0, 0);
-        b.set_texture(balltexture);
-        engine.setBall(b);
 
+        //instancie objet bille
         if (levelIndex == 1 )
         engine.setLevel(Level.Level1(getHeight(), getWidth()));
         else if(levelIndex == 2)
@@ -88,21 +82,27 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
         else if (levelIndex == 3)
             engine.setLevel(Level.Level3(getHeight(), getWidth()));
 
+        //chargement de la ressource
+        Bitmap balltexture = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         Bitmap holeTexture = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
-        Bitmap cannonTexture = BitmapFactory.decodeResource(getResources(), R.drawable.canon);
-        for (GameObject gameObject : engine.getLevel().get_gameObjectArrayList()){
+        Bitmap cannonTexture = BitmapFactory.decodeResource(getResources(), R.drawable.canon);//texture extraite de http://furiouspixels.blogspot.fr/
+        for (AbstractGameObject gameObject : engine.getLevel().get_objets()){
             //Hole
-            if (gameObject.getClass().equals(Hole.class)) {
+            if (gameObject.getAbstractGameObject() instanceof Hole) {
                 gameObject.set_texture(holeTexture);
             }
+            //Ball
+            if (gameObject.getAbstractGameObject() instanceof Ball) {
+
+                gameObject.set_texture(balltexture);
+            }
             //Cannon
-            if (gameObject.getClass().equals(Cannon.class)) {
+            if (gameObject.getAbstractGameObject() instanceof Cannon) {
                 gameObject.set_texture(cannonTexture);
             }
             //Bullet
-            if (gameObject.getClass().equals(Bullet.class)) {
+            if (gameObject.getAbstractGameObject() instanceof Bullet) {
                 gameObject.set_texture(balltexture);
-/*                engine.addAutresBall(gameObject);*/
             }
         }
         //start accelerometer
@@ -151,11 +151,9 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
 
         canvas.drawPaint(gradientPaint);
 
-        for (GameObject gameObject : engine.getLevel().get_gameObjectArrayList()){
+        for (AbstractGameObject gameObject : engine.getLevel().get_objets()){
                 gameObject.Draw(canvas);
         }
-
-        engine.getBall().Draw(canvas);
     }
 
 

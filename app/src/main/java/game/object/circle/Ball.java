@@ -2,39 +2,38 @@ package game.object.circle;
 
 import android.graphics.Rect;
 
-import game.GameObjectInteractive;
-import game.Movable;
+import java.util.Vector;
 
-public class Ball extends GameObjectInteractive implements Movable {
+import game.AbstractGameObject;
+import game.shape.ShapeCircle;
+import mesmaths.geometrie.base.Vecteur;
 
+public class Ball extends ShapeCircle {
 
+    private Vecteur _acceleration;
 
-    public Ball(int radius, int x, int y){
+    public Ball(int radius, int x, int y, double masse){
         super(radius, x, y);
+        this.masse = masse;
+        this.acceleration = new Vecteur();
     }
 
 
-    public void setAcceleration(float xA, float yA) {
+    public void setAcceleration(double xA, double yA) {
+        _speed.x += xA;
+        if (_speed.x > maxSpeed)//droite
+            _speed.x = maxSpeed;
+        if (_speed.x < -maxSpeed)//gauche
+            _speed.x = -maxSpeed;
 
-        speedX += xA;
-        if (speedX > maxSpeed)//droite
-            speedX = maxSpeed;
-        if (speedX < -maxSpeed)//gauche
-            speedX = -maxSpeed;
-
-        speedY += yA;
-        if (speedY > maxSpeed)//haut
-            speedY = maxSpeed;
-        if (speedY < -maxSpeed)//bas
-            speedY = -maxSpeed;
+        _speed.y += yA;
+        if (_speed.y > maxSpeed)//haut
+            _speed.y = maxSpeed;
+        if (_speed.y < -maxSpeed)//bas
+            _speed.y = -maxSpeed;
     }
 
-    @Override
-    public void Move() {
-        // setPositionX(_posX + (int)speedX);
-        // setPositionY(_posY + (int)speedY);
-        this._drawRectangle = new Rect(_posX, _posY, _posX + get_radius()*2, _posY + get_radius()*2);//left, tope, right, bottom
-    }
+
     /*
     @Override
     public boolean isIntersect(Rect r) {

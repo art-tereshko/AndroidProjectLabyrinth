@@ -10,6 +10,6 @@ public class Hole extends ShapeCircle {
     public Hole(int radius, int x, int y) {
         super(radius, x, y);
 
-        _p.setColor(Color.DKGRAY);
+        paint.setColor(Color.DKGRAY);
     }
 }
