@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import game.AbstractGameObject;
 import game.DecoratorGameObject;
+import game.object.circle.Ball;
 import game.shape.ShapeCircle;
 import game.shape.ShapeRectangle;
 import mesmaths.geometrie.base.Vecteur;
@@ -63,6 +64,12 @@ public abstract class Collision extends DecoratorGameObject {
                     abstractGameObject.getAbstractGameObject() instanceof ShapeCircle) {
                 result = circleIntersectRectangle(abstractGameObject, _GameObjectDecorated);
             }
+
+            if (result && this._GameObjectDecorated.getAbstractGameObject() instanceof Ball)
+            {
+                PlayCollisionSound();
+            }
+
             return result;
         }
     }
@@ -92,6 +99,13 @@ public abstract class Collision extends DecoratorGameObject {
         // If the distance is less than the circle's radius, an intersection occurs
         double distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
         return distanceSquared <(radius*radius);
+    }
+
+    public void PlayCollisionSound() {
+        if (_GameObjectDecorated.get_player().isPlaying())
+            _GameObjectDecorated.get_player().seekTo(0);
+        else
+            _GameObjectDecorated.get_player().start();
     }
 
 

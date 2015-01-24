@@ -4,11 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 
 import java.util.Vector;
 
-import game.shape.ShapeCircle;
-import game.shape.ShapeRectangle;
 import mesmaths.geometrie.base.Vecteur;
 
 public abstract class DecoratorGameObject extends AbstractGameObject {
@@ -77,6 +76,9 @@ public abstract class DecoratorGameObject extends AbstractGameObject {
     }
 
     public void set_texture(Bitmap texture){this._GameObjectDecorated.set_texture(texture);}
+
+    public void set_player(MediaPlayer player){ this._GameObjectDecorated.set_player(player);}
+    public MediaPlayer get_player(){ return this._GameObjectDecorated.get_player();}
 
     public Rect get_drawRectangle() {
         return this._GameObjectDecorated.get_drawRectangle();
