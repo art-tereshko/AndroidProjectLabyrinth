@@ -22,6 +22,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.0'
-    compile files('Z:/Utilisateurs/Julien/Dropbox/AndroidProjectLabyrinth/AndroidProjectLabyrinth/libs/mesmaths.jar')
-    compile files('C:/Users/tekrane1u/Dropbox/AndroidProjectLabyrinth/AndroidProjectLabyrinth/libs/mesmaths.jar')
+    compile files('D:/Workspaces/AndroidEclipseWorkspace/AndroidProjectLabyrinthVersionFinale/libs/mesmaths.jar')
 }

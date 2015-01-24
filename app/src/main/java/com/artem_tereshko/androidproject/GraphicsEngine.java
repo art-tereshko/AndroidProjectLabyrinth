@@ -10,18 +10,19 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Shader;
 import android.hardware.SensorManager;
-import android.util.Log;
+import android.media.MediaPlayer;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import game.AbstractGameObject;
 import game.Level;
 import game.PhysicsEngine;
-//import game.object.circle.Bullet;
 import game.object.circle.Ball;
 import game.object.circle.Bullet;
 import game.object.circle.Hole;
 import game.object.rectangle.Cannon;
+
+//import game.object.circle.Bullet;
 //import game.object.rectangle.Cannon;
 
 
@@ -30,6 +31,7 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
     GameListener gameListener;
     private DrawThread drawThread;
     PhysicsEngine engine;
+    MediaPlayer mp;
 
     Paint gradientPaint;
 
@@ -60,6 +62,8 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
 
         engine = new PhysicsEngine(manager, displayRotaion);
         engine.setGameListener(this);
+
+        mp = MediaPlayer.create(context, R.raw.glass);
 
     }
     public void SetGameListener(GameListener l){
@@ -93,8 +97,8 @@ public class GraphicsEngine extends SurfaceView implements SurfaceHolder.Callbac
             }
             //Ball
             if (gameObject.getAbstractGameObject() instanceof Ball) {
-
                 gameObject.set_texture(balltexture);
+                gameObject.set_player(mp);
             }
             //Cannon
             if (gameObject.getAbstractGameObject() instanceof Cannon) {

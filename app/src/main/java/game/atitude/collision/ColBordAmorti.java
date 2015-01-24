@@ -1,8 +1,6 @@
 package game.atitude.collision;
 
 import game.AbstractGameObject;
-import game.shape.ShapeCircle;
-import mesmaths.cinematique.Collisions;
 import mesmaths.geometrie.base.Vecteur;
 
 
@@ -26,13 +24,24 @@ public class ColBordAmorti extends Collision{
         //GAUCHE ou DROITE
         if (this.get_position().x + this.get_speed().x < abscisseCoinHautGauche || this.get_position().x + this.get_speed().x > (abscisseCoinHautGauche+largeur) - this.get_drawRectangle().width()) {
             this.setSpeed(new Vecteur(0, this.get_speed().y));
+            //PlayCollisionSound();
+
         }
         //HAUT et BAS
         if (this.get_position().y + this.get_speed().y< ordonnéeCoinHautGauche || this.get_position().y + this.get_speed().y > (ordonnéeCoinHautGauche + hauteur) - this.get_drawRectangle().height())
         {
             this.setSpeed(new Vecteur(this.get_speed().x, 0));
+          //  PlayCollisionSound();
         }
+
     }
+    public void PlayCollisionSound() {
+        if (_GameObjectDecorated.get_player().isPlaying())
+            _GameObjectDecorated.get_player().seekTo(0);
+        else
+            _GameObjectDecorated.get_player().start();
+    }
+
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()

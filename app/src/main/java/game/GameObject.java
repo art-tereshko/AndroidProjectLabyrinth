@@ -4,11 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 
 import java.util.Vector;
 
-import game.shape.ShapeCircle;
-import game.shape.ShapeRectangle;
 import mesmaths.geometrie.base.Vecteur;
 
 
@@ -18,6 +17,7 @@ public class GameObject extends AbstractGameObject{
     protected int _height;
     protected int _width;
     protected Bitmap _texture;
+    protected MediaPlayer player;
     protected Vecteur _speed = new Vecteur(0.0, 0.0);;
     protected Rect _drawRectangle;
     protected Paint paint;
@@ -104,6 +104,16 @@ public class GameObject extends AbstractGameObject{
 
     public void set_texture(Bitmap _texture) {
         this._texture = _texture;
+    }
+
+    @Override
+    public void set_player(MediaPlayer player) {
+        this.player = player;
+    }
+
+    @Override
+    public MediaPlayer get_player() {
+        return this.player;
     }
 
     public Rect get_drawRectangle() {
