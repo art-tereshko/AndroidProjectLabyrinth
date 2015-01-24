@@ -16,42 +16,22 @@ public class ColObjectRebondi extends Collision {
     @Override
     public void collisionGameObject(AbstractGameObject abstractGameObject) {
         this._GameObjectDecorated.collisionGameObject(abstractGameObject);
-
+        //rebondi pas contre les Aim, Hole
         if(!(abstractGameObject.getAbstractGameObject() instanceof Aim) && !(abstractGameObject.getAbstractGameObject() instanceof Hole) && this.isIntersectBy(abstractGameObject)) {
-            Vecteur vitesse = _GameObjectDecorated.get_speed();
+            Vecteur vitesse = new Vecteur(_GameObjectDecorated.get_speed());
 
-            vitesse.produitScalaire(abstractGameObject.get_speed());
+            if(_GameObjectDecorated.get_position().x + _GameObjectDecorated.get_speed().x + _GameObjectDecorated.get_width() > abstractGameObject.get_position().x || //on vient par la GAUCHE
+                    _GameObjectDecorated.get_position().x + _GameObjectDecorated.get_speed().x < abstractGameObject.get_position().x + abstractGameObject.get_width() //on vient par la DROITE
+                    )
+                vitesse.x = -vitesse.x;
 
-
-            //Recherche du point de collision
-            if(_GameObjectDecorated.get_position().x  - _GameObjectDecorated.get_speed().x < abstractGameObject.get_position().x) {//touche GAUCHE de abstract
-               if(Math.abs(vitesse.x) < MIN_ACCEL)
-                   vitesse.x = 0;
-               else
-                   vitesse.x = _GameObjectDecorated.getMasse() > 0 ? -vitesse.x / (1 + 1/_GameObjectDecorated.getMasse()) : -vitesse.x;
-            }
-            else if(_GameObjectDecorated.get_position().x  - _GameObjectDecorated.get_speed().x > abstractGameObject.get_position().x + abstractGameObject.get_width()){//touche DROITE de abstract
-                if(Math.abs(vitesse.x) < MIN_ACCEL)
-                    vitesse.x = 0;
-                else
-                   vitesse.x = _GameObjectDecorated.getMasse() > 0 ? -vitesse.x / (1 + 1/_GameObjectDecorated.getMasse()) : -vitesse.x;
-            }
-
-            if(_GameObjectDecorated.get_position().y - _GameObjectDecorated.get_speed().y < abstractGameObject.get_position().y) {//touche DESSUS de abstract
-               if(Math.abs(vitesse.y) < MIN_ACCEL)
-                   vitesse.y = 0;
-               else
-                    vitesse.y = _GameObjectDecorated.getMasse() > 0 ? -vitesse.y / (1 + 1/_GameObjectDecorated.getMasse()) : -vitesse.y;
-            }
-            else if(_GameObjectDecorated.get_position().y  - _GameObjectDecorated.get_speed().y > abstractGameObject.get_position().y + abstractGameObject.get_height()){//touche DESSOUS de abstract
-               if(Math.abs(vitesse.y) < MIN_ACCEL)
-                   vitesse.y = 0;
-               else
-               vitesse.y = _GameObjectDecorated.getMasse() > 0 ? -vitesse.y / (1 + 1/_GameObjectDecorated.getMasse()) : -vitesse.y;
-            }
+            if(_GameObjectDecorated.get_position().y + _GameObjectDecorated.get_speed().y + _GameObjectDecorated.get_height() > abstractGameObject.get_position().y || //on vient par le HAUT
+                    _GameObjectDecorated.get_position().y + _GameObjectDecorated.get_speed().y  < abstractGameObject.get_position().y + abstractGameObject.get_height() //on vient par le BAS
+                    )
+                vitesse.y = -vitesse.y;
 
             _GameObjectDecorated.setSpeed(vitesse);
-       }
+        }
     }
 
 

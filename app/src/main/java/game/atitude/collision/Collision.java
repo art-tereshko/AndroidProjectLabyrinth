@@ -69,7 +69,7 @@ public abstract class Collision extends DecoratorGameObject {
 
     private boolean circleIntersectRectangle(AbstractGameObject circle, AbstractGameObject rect){
             int radius = circle.get_width()/2;
-            Vecteur c = new Vecteur(circle.get_position().x + radius, circle.get_position().y + radius);//rajoute la position next pour anticiper
+            Vecteur c = new Vecteur(circle.get_position().x + radius + circle.get_speed().x, circle.get_position().y + radius + circle.get_speed().y);//rajoute la position next pour anticiper
             double closestX, closestY;
         // Find the closest point to the circle within the rectangle
         if (c.x < rect.get_position().x)//a gauche

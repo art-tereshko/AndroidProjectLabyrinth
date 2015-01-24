@@ -5,8 +5,7 @@ import android.graphics.Rect;
 import java.util.Vector;
 
 import game.atitude.collision.ColBordAmorti;
-import game.atitude.collision.ColObjectAmorti;
-import game.atitude.collision.ColObjectRebondi;
+import game.atitude.collision.ColObjectRenbondiRalenti;
 import game.atitude.mouvement.MvtSensor;
 import game.atitude.mouvement.MvtVitesseRalentieSiPasAcceleration;
 import game.object.circle.Aim;
@@ -82,10 +81,10 @@ public class Level {
 
 
         AbstractGameObject ball = new Ball(pHeight*5, 0, 0, 5.0);
-        ball = new MvtSensor(ball);
         ball = new MvtVitesseRalentieSiPasAcceleration(ball);
         ball = new ColBordAmorti(ball);
-        ball = new ColObjectAmorti(ball);
+        ball = new ColObjectRenbondiRalenti(ball);
+        ball = new MvtSensor(ball);
         lvl.add(ball);
 
         //x, y, height, width
@@ -116,7 +115,7 @@ public class Level {
         ball = new MvtSensor(ball);
        ball = new MvtVitesseRalentieSiPasAcceleration(ball);
         ball = new ColBordAmorti(ball);
-        ball = new ColObjectAmorti(ball);
+        ball = new ColObjectRenbondiRalenti(ball);
         lvl.add(ball);
 
         int wallWidth = pHeight * 5;
@@ -169,7 +168,7 @@ public class Level {
         ball = new MvtSensor(ball);
         ball = new MvtVitesseRalentieSiPasAcceleration(ball);
         ball = new ColBordAmorti(ball);
-        ball = new ColObjectAmorti(ball);
+        ball = new ColObjectRenbondiRalenti(ball);
         lvl.add(ball);
 
         lvl.add(new Wall(width / 2 - (wallWidth / 2), height / 100 * 30, height, wallWidth));

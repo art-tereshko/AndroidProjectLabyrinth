@@ -20,6 +20,7 @@ public abstract class DecoratorGameObject extends AbstractGameObject {
     protected static double MIN_ACCEL = 0.05;//MvtSensor
     protected static double FREINS = 0.2;//MvtVitesseRalentieSiPasAcceleration
     protected static double VITESSE_UNFIFORME = 4.0;//MvtUniforme
+    protected static double MIN_VITESSE = 3.0;//ColObjectAmorti
 
 
     public DecoratorGameObject(AbstractGameObject gameObjectDecorated) {
