@@ -102,10 +102,12 @@ public abstract class Collision extends DecoratorGameObject {
     }
 
     public void PlayCollisionSound() {
-        if (_GameObjectDecorated.get_player().isPlaying())
+        if (_GameObjectDecorated.get_player().isPlaying() && _GameObjectDecorated.get_player().getCurrentPosition() > 500){
             _GameObjectDecorated.get_player().seekTo(0);
-        else
             _GameObjectDecorated.get_player().start();
+        } else if(!_GameObjectDecorated.get_player().isPlaying())
+            _GameObjectDecorated.get_player().start();
+
     }
 
 
