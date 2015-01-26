@@ -79,6 +79,7 @@ public class Cannon extends ShapeRectangle {
         double startBulletY = _position.y;
         if(_bullet == null ) {//aucune Bullet existe, il faut en créer une
             _bullet = new Bullet(_height/6, (int)startBulletX, (int)startBulletY, angleorientation, this);
+            _bullet.setMasse(3.0);
             _bullet = new MvtUniforme(_bullet, _wolrdWidth/(double)_worldHeight);
             _bullet = new ColDestructBullet(_bullet);
             _listGameObject.add(_bullet);
@@ -94,6 +95,7 @@ public class Cannon extends ShapeRectangle {
                 AbstractGameObject copie =_bullet;//besoin de faire une copie pour ciper ensuite la texture
 
                 _bullet = new Bullet(_height/6, (int)startBulletX, (int)startBulletY, angleorientation, this);
+                _bullet.setMasse(3.0);
                 _bullet = new MvtUniforme(_bullet, _wolrdWidth/(double)_worldHeight);
                 _bullet = new ColDestructBullet(_bullet);
                 _bullet.set_texture(copie.get_texture());

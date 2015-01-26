@@ -82,6 +82,10 @@ public class GameObject extends AbstractGameObject{
         return masse;
     }
 
+    public void setMasse(double masse) {
+        this.masse = masse;
+    }
+
     public int getClef() {
         return clef;
     }
@@ -106,12 +110,10 @@ public class GameObject extends AbstractGameObject{
         this._texture = _texture;
     }
 
-    @Override
     public void set_player(MediaPlayer player) {
         this.player = player;
     }
 
-    @Override
     public MediaPlayer get_player() {
         return this.player;
     }

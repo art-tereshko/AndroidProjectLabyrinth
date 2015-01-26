@@ -28,6 +28,8 @@ public abstract class AbstractGameObject{
 
     public abstract double getMasse();
 
+    public abstract void setMasse(double masse);
+
     public abstract int getClef();
 
     public abstract double getRepulsion();
@@ -41,6 +43,7 @@ public abstract class AbstractGameObject{
     public abstract void set_texture(Bitmap texture);
 
     public abstract void set_player(MediaPlayer player);
+
     public abstract MediaPlayer get_player();
 
     public abstract Rect get_drawRectangle();

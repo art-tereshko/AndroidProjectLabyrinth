@@ -79,17 +79,12 @@ public class Level {
 
         Level lvl = new Level(height, width);
 
-
         AbstractGameObject ball = new Ball(pHeight*5, 0, 0, 5.0);
         ball = new MvtVitesseRalentieSiPasAcceleration(ball);
         ball = new ColBordAmorti(ball);
         ball = new ColObjectRenbondiRalenti(ball);
         ball = new MvtSensor(ball);
         lvl.add(ball);
-
-        //x, y, height, width
-
-
 
         //                  posX                posY                    height              width
         lvl.add(new Wall(   pWidth*20,          0,                      pHeight*70,         pWidth*5));
@@ -111,12 +106,30 @@ public class Level {
 
         Level lvl = new Level(height, width);
 
-        AbstractGameObject ball = new Ball(pHeight*3, 0, 0, 5.0);//radius, x, y, masse
-        ball = new MvtSensor(ball);
-       ball = new MvtVitesseRalentieSiPasAcceleration(ball);
+        AbstractGameObject ball = new Ball(pHeight*5, 0, 0, 5.0);//radius, x, y, masse
+        ball = new MvtVitesseRalentieSiPasAcceleration(ball);
         ball = new ColBordAmorti(ball);
         ball = new ColObjectRenbondiRalenti(ball);
+        ball = new MvtSensor(ball);
         lvl.add(ball);
+
+        /*
+        //                  posX                posY                    height              width
+        lvl.add(new Wall(   pWidth*10,          pHeight*60,             height-pHeight*60,  pWidth*5));
+        lvl.add(new Wall(   pWidth*20,          0,                      pHeight*30,         pWidth*5));
+        lvl.add(new Wall(   pWidth*80,          pHeight*30,             pHeight*50,         pWidth*5));
+
+
+        //                          radius              posX            posY
+        lvl.add(new CircularWall(   pHeight*20,         pWidth*30,      pHeight*40));
+
+        //                  radius              posX                    posY
+        lvl.add(new Hole(   pHeight*5,          0,                      height-pHeight*10));
+        lvl.add(new Hole(   pHeight*5,          pWidth*30+pHeight*5,   height-pHeight*10));
+        lvl.add(new Hole(   pHeight*5,          pWidth*60,              pHeight*50));
+        lvl.add(new Aim(    pHeight * 5,        width - pHeight * 15,   height - pHeight * 15));
+        */
+
 
         int wallWidth = pHeight * 5;
         lvl.add(new CircularWall(wallWidth, width / 4, 0 - wallWidth));//1
@@ -143,7 +156,7 @@ public class Level {
         lvl.add(new Hole(wallWidth, width / 16 * 3, height / 14 * 13 - wallWidth / 2));//22
         lvl.add(new Wall(width / 16 * 5, height / 14 * 10, height, wallWidth));//23
         lvl.add(new CircularWall(wallWidth + wallWidth / 2, width / 16 * 5 - wallWidth, height / 14 * 10));//24
-        //
+
         return lvl;
     }
 
@@ -157,23 +170,39 @@ public class Level {
 
         Level lvl = new Level(height, width);
         int wallWidth = width / 100 * 5; // 5%
-        int cannonWidth = width / 100 * 10; // 10%
-        int cannonHeight =cannonWidth /2;
         int aimSize = height / 100 * 5;
         int aimX = width - aimSize * 2;
         int aimY = aimSize;
 
 
-        AbstractGameObject ball = new Ball(pHeight*3, 0, 0, 5.0);//radius, x, y, masse
+        AbstractGameObject ball = new Ball(pHeight*5, 0, 0, 5.0);//radius, x, y, masse
         ball = new MvtSensor(ball);
         ball = new MvtVitesseRalentieSiPasAcceleration(ball);
         ball = new ColBordAmorti(ball);
         ball = new ColObjectRenbondiRalenti(ball);
         lvl.add(ball);
 
-        lvl.add(new Wall(width / 2 - (wallWidth / 2), height / 100 * 30, height, wallWidth));
-        lvl.add(new Aim(aimSize, aimX, aimY));
-        lvl.add(new Cannon(width /3, height/ 2, cannonWidth, cannonHeight, 0, 0 , lvl.get_objets(), width, height));//posX, posY, width, height, cibleX, cibleY
+
+        //                  posX                posY                    height              width
+        lvl.add(new Wall(   pWidth*10,          pHeight*60,             height-pHeight*60,  pWidth*5));
+        lvl.add(new Wall(   pWidth*20,          0,                      pHeight*5,          pWidth*50));
+        lvl.add(new Wall(   pWidth*80,          pHeight*50,             pHeight*50,         pWidth*5));
+
+
+        //                          radius              posX            posY
+        lvl.add(new CircularWall(   pHeight*15,         pWidth*80,      pHeight*15));
+
+
+        //                  posX,       posY,               width,          height,         cibleX,     cibleY, listeobjets,      tailledumonde
+        lvl.add(new Cannon( width /3,   height/ 2,          pWidth*10,      pWidth*5,       0,          0 ,     lvl.get_objets(), width, height));
+        //                  radius              posX                    posY
+        lvl.add(new Hole(   pHeight*5,          0,                      height-pHeight*10));
+        lvl.add(new Hole(   pHeight*5,          pWidth*30+pHeight*5,    height-pHeight*10));
+        lvl.add(new Hole(   pHeight*5,          pWidth*60,              pHeight*50));
+        lvl.add(new Aim(    pHeight * 5,        width - pHeight * 15,   height - pHeight * 15));
+
+
+
         return lvl;
     }
 }

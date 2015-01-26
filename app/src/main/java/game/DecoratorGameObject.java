@@ -56,6 +56,8 @@ public abstract class DecoratorGameObject extends AbstractGameObject {
         return this._GameObjectDecorated.getMasse();
     }
 
+    public void setMasse(double masse){this._GameObjectDecorated.setMasse(masse);}
+
     public int getClef() {
         return this._GameObjectDecorated.getClef();
     }
