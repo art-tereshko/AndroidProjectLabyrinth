@@ -106,7 +106,7 @@ public class Level {
 
         Level lvl = new Level(height, width);
 
-        AbstractGameObject ball = new Ball(pHeight*5, 0, 0, 5.0);//radius, x, y, masse
+        AbstractGameObject ball = new Ball(pHeight*3, 0, 0, 5.0);//radius, x, y, masse
         ball = new MvtVitesseRalentieSiPasAcceleration(ball);
         ball = new ColBordAmorti(ball);
         ball = new ColObjectRenbondiRalenti(ball);
